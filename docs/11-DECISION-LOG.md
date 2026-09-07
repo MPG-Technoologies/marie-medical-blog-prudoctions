@@ -1179,3 +1179,25 @@ Production deployment is not claimed. Stage 11 and Stage 12 remain
 
 **Status:** ACTIVE / D035 + D036 IMPLEMENTATION COMPLETE / MERGED /
 POST-MERGE QUALITY GATE PASS / CANONICAL SYNCHRONIZATION CONFIRMED.
+
+## ACTIVE — D037 — Admin Navigation Reactivity, Auth Deduplication, and D036 Hosted Deployment
+
+**Date:** 2026-09-07
+
+**Decision:**
+1. Fix the admin navigation reactivity defect by introducing client-side reactive navigation chrome (`AdminNav`, `AdminHeaderTitle`, `AdminMobileNav`) driven by Next.js `usePathname()` and `useSearchParams()` while keeping `AdminShell` and the admin layout server-rendered.
+2. Optimize admin request latency by wrapping `requireAdmin()` in `React.cache()` to eliminate duplicate token and `public.is_admin()` RPC calls across a single Server Component tree, reducing sequential authorization latency without altering RLS or Server Action security.
+3. Deploy the canonical D036 migration `20260830090000_managed_public_media_slots.sql` to hosted Supabase project `eoexnnhqzrkurbqgbtnx` and verify `site_media_slots` schema, constraints, RLS, and permissions.
+
+**Reason:**
+Server-rendered App Router layouts do not re-render on soft navigation, leaving header titles and sidebar active highlights stuck on the initial route. Simultaneously, multiple un-memoized `requireAdmin()` calls on dynamic admin pages produced sequential cross-region round trips to Supabase. Hosted media features additionally required `public.site_media_slots`.
+
+**Impact:**
+- Admin sidebar active indicator and top header title update instantaneously on route change and URL query parameter change (e.g. `/admin/articles?status=draft`).
+- Single-request admin auth verification is reduced to exactly 1 cryptographic token check and 1 `public.is_admin()` RPC call per render.
+- `public.site_media_slots` is live on hosted Supabase with verified RLS.
+- Zero reader accounts, zero service role client leakage, and zero schema drift outside D036.
+
+**Approved by:** project owner.
+**Status:** ACTIVE / IMPLEMENTED / MIGRATION DEPLOYED / LOCAL GATE PASS.
+

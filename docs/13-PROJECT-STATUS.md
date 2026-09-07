@@ -4,19 +4,13 @@ This file is the authoritative repository record of the currently active develop
 
 ## Current status
 
-- **Current stage:** Pre-Stage-11 V1 Admin Completion — COMPLETE / MERGED / POST-MERGE QUALITY GATE PASS / CANONICAL SYNCHRONIZATION CONFIRMED
-- **Stage authorization:** D035 + D036 ACTIVE / IMPLEMENTATION COMPLETE / MERGED / POST-MERGE QUALITY GATE PASS / CANONICAL SYNCHRONIZATION CONFIRMED — 2026-08-30
-- **D035 canonical base:** `e8a7784fee2044d9be3aee80818f69784b2b5d7f`
-- **Canonical Stage-10 base:** `33736919c1cb5208faaf3d0ca63d9796fc98db3d`
-- **Active working branch:** `main` — CANONICAL / SYNCHRONIZED
-- **Application coding authorized:** NO — V1 ADMIN COMPLETION GATE CLOSED / WAITING FOR NEW EXPLICIT OWNER AUTHORIZATION
-- **Current implementation phase:** GATE CLOSED — CANONICAL INTEGRATION COMPLETE / WAITING FOR NEXT OWNER-CONTROLLED AUTHORIZATION
-- **D035 status:** ACTIVE / IMPLEMENTATION COMPLETE / MERGED / POST-MERGE QUALITY GATE PASS
-- **D036 status:** ACTIVE / MANAGED PUBLIC MEDIA + PUBLIC INTEGRATION COMPLETE / MERGED / POST-MERGE QUALITY GATE PASS
-- **D036 migration:** `supabase/migrations/20260830090000_managed_public_media_slots.sql` — LOCAL ONLY / HOSTED NOT DEPLOYED
+- **Current stage:** Production Admin Navigation & Performance Hotfix + D036 Hosted Migration — COMPLETE / VERIFIED / MERGED
+- **Stage authorization:** D037 OWNER AUTHORIZED / IMPLEMENTATION COMPLETE / LOCAL QUALITY GATE PASS — 2026-09-07
+- **D036 migration:** `supabase/migrations/20260830090000_managed_public_media_slots.sql` — DEPLOYED TO HOSTED `eoexnnhqzrkurbqgbtnx` / VERIFIED
 - **D036 fixed placements:** `home_hero`, `about_hero`, `portfolio_hero`, `contact_hero`, `author_portrait`, `default_social`
-- **Public structural layout:** OWNER APPROVED / VIEWPORT-FLUID SHELL + RESPONSIVE GUTTERS / FLUID STRUCTURAL GRIDS / READING-WIDTH CONSTRAINTS RETAINED FOR PROSE
-- **Gate-2 verification:** PASS — Node 174/174; pgTAP 323/323; Playwright 17/17; TypeScript; ESLint; Prettier; production build; staged diff integrity
+- **Active working branch:** `main`
+- **Application coding authorized:** NO — HOTFIX COMPLETE / WAITING FOR CANONICAL SYNCHRONIZATION AND PRODUCTION DEPLOYMENT
+- **Gate-2 verification:** PASS — Node 187/187; TypeScript; ESLint; Prettier; production build; staged diff integrity
 - **Local integration merge commit:** `a018704a0d9ed68db3bd49f83c84212d80167ab5`
 - **Local integration merge parents:** first parent `6fc9d6d1618e4308d88abaf9a5757032f619fc5c`; second parent `4682c1b1bc2843a4aea1bd2f16379f9fb08ffe06`
 - **Post-merge quality gate:** PASS — Node 174/174; Playwright 17/17; pgTAP 323/323 rerun after browser mutations; TypeScript; ESLint; Prettier; diff integrity; production build previously PASS on the same application tree
