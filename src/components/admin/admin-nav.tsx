@@ -5,16 +5,18 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
-  adminNavItems,
+  adminNavGroups,
   resolveAdminRouteState,
   type AdminModuleId,
 } from "@/lib/admin/navigation";
 
 export {
+  adminNavGroups,
   adminNavItems,
   resolveAdminRouteState,
   type AdminModuleId,
   type AdminNavItem,
+  type AdminNavGroup,
 } from "@/lib/admin/navigation";
 
 interface AdminNavProps {
@@ -34,31 +36,36 @@ function AdminNavContent({ initialActiveModule }: AdminNavProps) {
       aria-label="Admin Navigation"
       className="flex-1 space-y-1 overflow-y-auto px-3 py-5"
     >
-      {adminNavItems.map((item) => {
-        const Icon = item.icon;
-        const isActive = effectiveActive === item.id;
+      {adminNavGroups.map((group) => (
+        <div key={group.label} className="not-first:mt-5">
+          <p className="px-3 pb-1.5 text-[0.625rem] font-semibold tracking-[0.14em] text-ink-muted uppercase">
+            {group.label}
+          </p>
+          <div className="space-y-1">
+            {group.items.map((item) => {
+              const Icon = item.icon;
+              const isActive = effectiveActive === item.id;
 
-        return (
-          <Link
-            key={item.id}
-            href={item.href}
-            className={cn(
-              "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-[#265D7A] focus-visible:outline-none",
-              isActive
-                ? "bg-[#E8E2D7] font-semibold text-[#7B3F35]"
-                : "text-[#5E5953] hover:bg-[#E8E2D7]/50 hover:text-[#242321]",
-            )}
-          >
-            <Icon
-              className={cn(
-                "size-4 shrink-0",
-                isActive ? "text-[#7B3F35]" : "text-[#5E5953]",
-              )}
-            />
-            <span>{item.label}</span>
-          </Link>
-        );
-      })}
+              return (
+                <Link
+                  key={item.id}
+                  href={item.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={cn(
+                    "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors duration-[var(--admin-motion-fast)] focus-visible:ring-2 focus-visible:ring-focus-slate focus-visible:outline-none motion-reduce:transition-none",
+                    isActive
+                      ? "bg-subtle-field font-semibold text-oxide"
+                      : "text-ink-muted hover:bg-subtle-field/50 hover:text-ink",
+                  )}
+                >
+                  <Icon className="size-4 shrink-0" />
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      ))}
     </nav>
   );
 }
@@ -71,31 +78,36 @@ function AdminNavFallback({
       aria-label="Admin Navigation"
       className="flex-1 space-y-1 overflow-y-auto px-3 py-5"
     >
-      {adminNavItems.map((item) => {
-        const Icon = item.icon;
-        const isActive = initialActiveModule === item.id;
+      {adminNavGroups.map((group) => (
+        <div key={group.label} className="not-first:mt-5">
+          <p className="px-3 pb-1.5 text-[0.625rem] font-semibold tracking-[0.14em] text-ink-muted uppercase">
+            {group.label}
+          </p>
+          <div className="space-y-1">
+            {group.items.map((item) => {
+              const Icon = item.icon;
+              const isActive = initialActiveModule === item.id;
 
-        return (
-          <Link
-            key={item.id}
-            href={item.href}
-            className={cn(
-              "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-[#265D7A] focus-visible:outline-none",
-              isActive
-                ? "bg-[#E8E2D7] font-semibold text-[#7B3F35]"
-                : "text-[#5E5953] hover:bg-[#E8E2D7]/50 hover:text-[#242321]",
-            )}
-          >
-            <Icon
-              className={cn(
-                "size-4 shrink-0",
-                isActive ? "text-[#7B3F35]" : "text-[#5E5953]",
-              )}
-            />
-            <span>{item.label}</span>
-          </Link>
-        );
-      })}
+              return (
+                <Link
+                  key={item.id}
+                  href={item.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={cn(
+                    "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors duration-[var(--admin-motion-fast)] focus-visible:ring-2 focus-visible:ring-focus-slate focus-visible:outline-none motion-reduce:transition-none",
+                    isActive
+                      ? "bg-subtle-field font-semibold text-oxide"
+                      : "text-ink-muted hover:bg-subtle-field/50 hover:text-ink",
+                  )}
+                >
+                  <Icon className="size-4 shrink-0" />
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      ))}
     </nav>
   );
 }
@@ -121,7 +133,7 @@ function AdminHeaderTitleContent({ initialTitle }: AdminHeaderTitleProps) {
   const { title } = resolveAdminRouteState(pathname || "", searchParams);
 
   return (
-    <h1 className="font-serif text-xl font-medium tracking-tight text-[#242321] sm:text-2xl">
+    <h1 className="font-serif text-xl font-medium tracking-tight text-foreground sm:text-2xl">
       {title || initialTitle || "Dashboard"}
     </h1>
   );
@@ -133,7 +145,7 @@ export function AdminHeaderTitle({
   return (
     <React.Suspense
       fallback={
-        <h1 className="font-serif text-xl font-medium tracking-tight text-[#242321] sm:text-2xl">
+        <h1 className="font-serif text-xl font-medium tracking-tight text-foreground sm:text-2xl">
           {initialTitle}
         </h1>
       }
