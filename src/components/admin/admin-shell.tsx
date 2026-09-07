@@ -1,84 +1,20 @@
 import * as React from "react";
 import Link from "next/link";
-import {
-  LayoutDashboard,
-  FileText,
-  FileEdit,
-  FolderTree,
-  Image,
-  Briefcase,
-  MessageSquare,
-  Mail,
-  Settings,
-  ArrowUpRight,
-  LogOut,
-} from "lucide-react";
+import { ArrowUpRight, LogOut } from "lucide-react";
 import { AdminMobileNav } from "@/components/admin/admin-mobile-nav";
+import {
+  AdminNav,
+  AdminHeaderTitle,
+  type AdminModuleId,
+} from "@/components/admin/admin-nav";
 import { logoutAction } from "@/app/admin/login/actions";
-import { cn } from "@/lib/utils";
 
 interface AdminShellProps {
   children: React.ReactNode;
   title?: string;
-  activeModule?:
-    | "dashboard"
-    | "articles"
-    | "drafts"
-    | "categories"
-    | "media"
-    | "portfolio"
-    | "comments"
-    | "messages"
-    | "settings";
+  activeModule?: AdminModuleId;
   actions?: React.ReactNode;
 }
-
-const adminNavItems = [
-  {
-    label: "Dashboard",
-    href: "/admin",
-    icon: LayoutDashboard,
-    id: "dashboard",
-  },
-  {
-    label: "Articles",
-    href: "/admin/articles",
-    icon: FileText,
-    id: "articles",
-  },
-  {
-    label: "Drafts",
-    href: "/admin/articles?status=draft",
-    icon: FileEdit,
-    id: "drafts",
-  },
-  {
-    label: "Categories",
-    href: "/admin/categories",
-    icon: FolderTree,
-    id: "categories",
-  },
-  { label: "Media", href: "/admin/media", icon: Image, id: "media" },
-  {
-    label: "Portfolio",
-    href: "/admin/portfolio",
-    icon: Briefcase,
-    id: "portfolio",
-  },
-  {
-    label: "Comments",
-    href: "/admin/comments",
-    icon: MessageSquare,
-    id: "comments",
-  },
-  { label: "Messages", href: "/admin/messages", icon: Mail, id: "messages" },
-  {
-    label: "Settings",
-    href: "/admin/settings",
-    icon: Settings,
-    id: "settings",
-  },
-];
 
 export function AdminShell({
   children,
@@ -119,36 +55,7 @@ export function AdminShell({
         </div>
 
         {/* Sidebar Navigation */}
-        <nav
-          aria-label="Admin Navigation"
-          className="flex-1 space-y-1 overflow-y-auto px-3 py-5"
-        >
-          {adminNavItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = activeModule === item.id;
-
-            return (
-              <Link
-                key={item.id}
-                href={item.href}
-                className={cn(
-                  "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-[#265D7A] focus-visible:outline-none",
-                  isActive
-                    ? "bg-[#E8E2D7] font-semibold text-[#7B3F35]"
-                    : "text-[#5E5953] hover:bg-[#E8E2D7]/50 hover:text-[#242321]",
-                )}
-              >
-                <Icon
-                  className={cn(
-                    "size-4 shrink-0",
-                    isActive ? "text-[#7B3F35]" : "text-[#5E5953]",
-                  )}
-                />
-                <span>{item.label}</span>
-              </Link>
-            );
-          })}
-        </nav>
+        <AdminNav initialActiveModule={activeModule} />
 
         {/* User profile footer */}
         <div className="flex items-center justify-between border-t border-[#D2C9BC] p-4">
@@ -183,10 +90,8 @@ export function AdminShell({
         {/* Top Header */}
         <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-[#D2C9BC] bg-[#F6F1E8]/90 px-5 backdrop-blur-xs sm:px-8">
           <div className="flex items-center gap-3">
-            <AdminMobileNav activeModule={activeModule} />
-            <h1 className="font-serif text-xl font-medium tracking-tight text-[#242321] sm:text-2xl">
-              {title}
-            </h1>
+            <AdminMobileNav initialActiveModule={activeModule} />
+            <AdminHeaderTitle initialTitle={title} />
           </div>
 
           {actions && <div className="flex items-center gap-3">{actions}</div>}

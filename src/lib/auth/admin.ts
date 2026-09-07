@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 
@@ -13,10 +14,10 @@ export interface AuthenticatedAdmin {
  * 1. Cryptographic token validity and presence of claims.sub via getClaims().
  * 2. Admin allowlist membership via authenticated RPC public.is_admin().
  *
- * Acts strictly as an authorization gate. Does not attempt session cookie mutation
- * from within Server Components.
+ * Wrapped in React.cache() to deduplicate authorization lookups across a single
+ * Server Component request tree while preserving complete security across Server Actions.
  */
-export async function requireAdmin(): Promise<AuthenticatedAdmin> {
+export const requireAdmin = cache(async (): Promise<AuthenticatedAdmin> => {
   const supabase = await createClient();
 
   // 1. Cryptographic token & claims verification
@@ -39,4 +40,4 @@ export async function requireAdmin(): Promise<AuthenticatedAdmin> {
     id: claims.sub as string,
     email: claims.email as string | undefined,
   };
-}
+});
