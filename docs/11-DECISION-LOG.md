@@ -1223,6 +1223,35 @@ A read-only reconciliation audit confirmed that canonical `main` and production 
 - Production and `main` branches remain completely untouched pending explicit owner merge authorization.
 
 **Approved by:** project owner.
-**Status:** ACTIVE / INTEGRATION COMPLETE / MERGED TO MAIN / POST-MERGE QUALITY GATE PASS.
+**Status:** ACTIVE / INTEGRATION COMPLETE / MERGED TO MAIN / POST-MERGE GATE PASS / PRODUCTION DEPLOYED / PRODUCTION VERIFIED / CLOSED.
 
+#### D038 Stage 11 Normal Merge, Production Deployment, and Final Closeout Confirmation
 
+**Date:** 2026-09-08
+
+**Confirmation:**
+1. The normal merge of `stage/11-quality-hardening-integration` (`f02b82dbac7408780f4460d768697fed8cc22817`) into canonical `main` (`9ffa8cd34a8b074690cdffb3a5df3094d19da394`) was completed at merge commit `019ae553d96c68a85bfe652f1d1c83ab05b27272`, preserving normal Git history.
+2. The post-merge quality gate on canonical `main` passed completely:
+   - TypeScript (`npm run typecheck`): 0 errors
+   - ESLint (`npm run lint`): 0 errors, 0 warnings
+   - Prettier (`npm run format:check`): 100% compliant
+   - Git diff check (`git diff --check`): clean
+   - Node Unit / Integration tests (`node --test tests/*.test.mjs`): 187 / 187 passing
+   - Production Build (`npm run build`): 20 / 20 static & dynamic routes compiled cleanly in 14.0s
+3. Canonical remote `origin/main` (`techwithmpg/Marie-medical-blog`) and production mirror `production/main` (`MPG-Technoologies/marie-medical-blog-prudoctions`) were synchronized at accepted canonical SHA `ecb4407840ddcc0a002411e40ebdb88bc92d8fd2`.
+4. Vercel production deployment of accepted SHA `ecb4407840ddcc0a002411e40ebdb88bc92d8fd2` was completed to canonical domain `https://mariemedere.com`.
+5. Full live production verification on `https://mariemedere.com` was executed and passed 100%:
+   - **Public route smoke tests:** `/`, `/blog`, `/portfolio`, `/about`, `/contact`, `/disclaimer` all return `200 OK` with valid page titles and Evidence Folio layout.
+   - **Marie admin password authentication:**
+     - Automated verification established Marie's UUID (`9217c58f-a777-4a77-94d9-d4729fcf3cea`), authenticated session validity, `is_admin` RPC authorization, and protected admin routing.
+     - Project owner subsequently manually verified normal production email/password login through `https://mariemedere.com/admin/login` and confirmed successful redirect into `/admin`.
+     - Therefore production password authentication is accepted as PASS (zero credentials recorded).
+   - **Admin protected workspace:** `/admin`, `/admin/articles`, `/admin/articles?status=draft`, `/admin/categories`, `/admin/media`, `/admin/portfolio`, `/admin/comments`, `/admin/messages`, `/admin/settings` all verified accessible and fully rendered.
+   - **Route-reactive navigation:** Sidebar active indicators (`aria-current="page"`) and header titles (`AdminHeaderTitle`) reactively update across all module transitions and query filter changes.
+   - **Browser Back/Forward navigation:** History traversal reactively synchronizes sidebar highlights and header titles without stale state.
+   - **Article editor unsaved-changes guard:** `/admin/articles/new` blocks navigation on unsaved edits with accessible confirmation dialog.
+   - **D036 managed media slots:** Canonical slot IDs (`home_hero`, `about_hero`, `portfolio_hero`, `contact_hero`, `author_portrait`, `default_social`) verified live on hosted Supabase `eoexnnhqzrkurbqgbtnx` and rendered in the admin UI.
+6. Zero database migrations added (D036 remains verified on hosted Supabase). Zero changes to RLS, Auth allowlist, Marie's account, dependencies, or public Evidence Folio design.
+7. Stage 11 is formally CLOSED. Stage 12 remains NOT AUTHORIZED.
+
+**Status:** ACTIVE / STAGE 11 COMPLETE / MERGED / POST-MERGE GATE PASS / PRODUCTION SYNC COMPLETE / VERCEL DEPLOYMENT COMPLETE / PRODUCTION QA PASS / OWNER PASSWORD LOGIN VERIFIED / CLOSED.

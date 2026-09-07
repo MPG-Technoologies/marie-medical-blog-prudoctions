@@ -4,20 +4,36 @@ This file is the authoritative repository record of the currently active develop
 
 ## Current status
 
-- **Current stage:** Stage 11 Admin Quality Hardening — MERGED INTO CANONICAL MAIN / POST-MERGE QUALITY GATE PASS / READY FOR PRODUCTION SYNC & DEPLOYMENT
-- **Stage authorization:** D038 OWNER AUTHORIZED / MERGED TO MAIN / POST-MERGE GATE PASS — 2026-09-08
+- **Current stage:** Stage 11 Admin Quality Hardening — COMPLETE / MERGED / POST-MERGE GATE PASS / PRODUCTION SYNC COMPLETE / VERCEL DEPLOYMENT COMPLETE / PRODUCTION QA PASS / OWNER PASSWORD LOGIN VERIFIED / CLOSED
+- **Stage authorization:** D038 OWNER AUTHORIZED / MERGED TO MAIN / POST-MERGE GATE PASS / PRODUCTION VERIFIED & CLOSED — 2026-09-08
+- **Canonical production baseline:** `ecb4407840ddcc0a002411e40ebdb88bc92d8fd2`
 - **Merge commit:** `019ae553d96c68a85bfe652f1d1c83ab05b27272`
-- **Merge parents:** first parent `9ffa8cd34a8b074690cdffb3a5df3094d19da394`; second parent `f02b82dd24bfdc51909a9307d0f9a2db1704ba3b`
-- **Ratified canonical baseline:** `origin/main = 9ffa8cd34a8b074690cdffb3a5df3094d19da394`, `production/main = 9ffa8cd34a8b074690cdffb3a5df3094d19da394`
+- **Merge parents:** first parent `9ffa8cd34a8b074690cdffb3a5df3094d19da394`; second parent `f02b82dbac7408780f4460d768697fed8cc22817`
+- **Canonical repository (`origin/main`):** `techwithmpg/Marie-medical-blog` synchronized at `ecb4407840ddcc0a002411e40ebdb88bc92d8fd2`
+- **Production mirror (`production/main`):** `MPG-Technoologies/marie-medical-blog-prudoctions` synchronized at `ecb4407840ddcc0a002411e40ebdb88bc92d8fd2`
 - **Active working branch:** `main`
+- **Vercel production deployment:** DEPLOYED (`ecb4407840ddcc0a002411e40ebdb88bc92d8fd2`) to canonical domain `https://mariemedere.com` and Vercel alias `https://marie-medical-blog-prudoctions.vercel.app`
+- **Hosted Supabase project:** `eoexnnhqzrkurbqgbtnx` (Active / Healthy)
 - **D036 migration:** `supabase/migrations/20260830090000_managed_public_media_slots.sql` — DEPLOYED TO HOSTED `eoexnnhqzrkurbqgbtnx` / VERIFIED
-- **D036 fixed placements:** `home_hero`, `about_hero`, `portfolio_hero`, `contact_hero`, `author_portrait`, `default_social`
-- **Application coding authorized:** COMPLETED for Stage 11 bounded integration only; Stage 12/public refinement remains NOT AUTHORIZED
-- **Post-merge gate verification:** FULL PASS — Node 187/187; Playwright 63/63 (Chromium, Firefox, WebKit); pgTAP 323/323; TypeScript (0 errors); ESLint (0 errors/warnings); Prettier (100% check); git diff check (clean); schema lint (0 errors); axe serious/critical violations 0; production build 20/20 routes PASS
-- **Navigation architecture:** D037 reactive client-route resolution (`usePathname`, `useSearchParams`, `resolveAdminRouteState`) retained as authoritative; Stage 11 section grouping (`Editorial`, `Audience`, `System`), skip link `#admin-main-content`, and tablet breakpoint synthesized into canonical `src/lib/admin/navigation.ts`
-- **Auth deduplication:** `React.cache(requireAdmin)` retained with request-scoped memoization
-- **Database boundary:** ZERO migrations added; D036 unchanged; RLS unchanged; hosted Supabase untouched
-- **Production sync & deploy:** Authorizing canonical push, production mirror synchronization, and Vercel deployment of verified merge head
+- **D036 canonical slot IDs:** `home_hero`, `about_hero`, `portfolio_hero`, `contact_hero`, `author_portrait`, `default_social` (all verified active and rendered in admin UI)
+- **Post-merge quality gate on canonical `main`:** FULL PASS — Node 187/187; TypeScript (0 errors); ESLint (0 errors, 0 warnings); Prettier (100% check); git diff check (clean); Next.js production build 20/20 routes PASS (compiled in 14.0s)
+- **Production verification & QA results (`https://mariemedere.com`):**
+  - **Public route smoke tests:** `/`, `/blog`, `/portfolio`, `/about`, `/contact`, `/disclaimer` all return `200 OK` with valid Evidence Folio layout and page titles.
+  - **Marie admin password authentication:**
+    1. Automated verification established Marie's UUID (`9217c58f-a777-4a77-94d9-d4729fcf3cea`), authenticated session validity, `is_admin` RPC authorization, and protected admin routing.
+    2. Project owner subsequently manually verified normal production email/password login through `https://mariemedere.com/admin/login` and confirmed successful redirect into the authenticated `/admin` workspace.
+    Therefore production password authentication is accepted as PASS (zero exposure of credentials).
+  - **Admin protected workspace:** `/admin` (dashboard with 9 summary/activity metrics), `/admin/articles` (article table), `/admin/articles?status=draft` (filtered query view), `/admin/categories`, `/admin/media` (media listing and managed public media slots), `/admin/portfolio`, `/admin/comments` (moderation workspace), `/admin/messages` (contact inbox), `/admin/settings` all verified accessible (`200 OK`) and fully rendered.
+  - **Route-reactive navigation:** Sidebar active indicators (`aria-current="page"`) and header titles (`AdminHeaderTitle`) reactively update across all module switches and query filter transitions (`?status=draft`).
+  - **Browser Back/Forward navigation:** History traversal reactively synchronizes sidebar active highlights and header titles without stuck state.
+  - **Article editor unsaved-changes guard:** `/admin/articles/new` dirty state triggers accessible confirmation dialog on navigation attempts and preserves content when canceled.
+  - **D036 managed media slots:** Verified live on hosted database and rendered in `/admin/media`.
+- **Navigation architecture:** D037 reactive client-route resolution (`usePathname`, `useSearchParams`, `resolveAdminRouteState`) retained as authoritative; Stage 11 section grouping (`Editorial`, `Audience`, `System`), skip link `#admin-main-content`, and tablet breakpoint synthesized into canonical `src/lib/admin/navigation.ts`.
+- **Auth deduplication:** `React.cache(requireAdmin)` retained with request-scoped memoization.
+- **Database boundary:** ZERO migrations added; D036 unchanged; RLS unchanged; hosted Supabase untouched.
+- **Stage 11 status:** COMPLETE / MERGED / POST-MERGE GATE PASS / PRODUCTION SYNC COMPLETE / VERCEL DEPLOYMENT COMPLETE / PRODUCTION QA PASS / OWNER PASSWORD LOGIN VERIFIED / CLOSED
+- **Stage 12 status:** NOT AUTHORIZED
+- **Next action:** WAIT FOR EXPLICIT OWNER AUTHORIZATION BEFORE STAGE 12.
 
 - **D035 design specification:** `docs/37-V1-ADMIN-COMPLETION-DESIGN.md`
 - **Implementation branch:** `fix/v1-admin-completion` — CREATED FROM `6fc9d6d1618e4308d88abaf9a5757032f619fc5c`
@@ -54,10 +70,10 @@ This file is the authoritative repository record of the currently active develop
 - **Category migration:** NOT REQUIRED
 - **Media:** D035 PHASE 2 + D036 MANAGED PUBLIC MEDIA COMPLETE / FULL LOCAL GATE PASS — complete Node regression 174/174 PASS; pgTAP 323/323 PASS; Playwright 17/17 PASS; typecheck/lint/format/build/diff integrity PASS
 - **Media migration:** NOT REQUIRED
-- **Hosted Supabase migration for this gate:** D036 LOCAL MIGRATION `20260830090000_managed_public_media_slots.sql` EXISTS / LOCAL VERIFICATION PASS / HOSTED DEPLOYMENT NOT EXECUTED OR AUTHORIZED BY THIS CLOSEOUT
-- **Stage 11:** NOT AUTHORIZED / V1 ADMIN COMPLETION PREREQUISITE GATE COMPLETE / AWAITING NEW EXPLICIT OWNER AUTHORIZATION
+- **Hosted Supabase migration:** D036 MIGRATION `20260830090000_managed_public_media_slots.sql` DEPLOYED TO HOSTED `eoexnnhqzrkurbqgbtnx` / VERIFIED
+- **Stage 11:** COMPLETE / MERGED / POST-MERGE GATE PASS / PRODUCTION SYNC COMPLETE / VERCEL DEPLOYMENT COMPLETE / PRODUCTION QA PASS / OWNER PASSWORD LOGIN VERIFIED / CLOSED
 - **Stage 12:** NOT AUTHORIZED
-- **Next action:** VERIFY THIS FINAL GOVERNANCE-ONLY RECONCILIATION ON CANONICAL `main` → OPTIONAL `fix/v1-admin-completion` BRANCH CLEANUP → WAIT FOR NEW EXPLICIT OWNER AUTHORIZATION BEFORE STAGE 11
+- **Next action:** WAIT FOR EXPLICIT OWNER AUTHORIZATION BEFORE STAGE 12.
 - **Stage-10 design specification:** `docs/35-STAGE-10-SEO-SOCIAL-ANALYTICS-DESIGN.md`
 - **Phase 9A status:** COMPLETE / EXTERNAL PASS
 - **Phase 9A final reviewed head:** `a329d34234b24def8607a5dea1747ddef800c393`

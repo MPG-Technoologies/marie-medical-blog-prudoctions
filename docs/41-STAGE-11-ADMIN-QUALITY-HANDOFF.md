@@ -1,11 +1,12 @@
 # 41 — Stage 11 Admin Quality Hardening Handoff
 
 **Date:** 2026-09-08
-**Integration Branch:** `stage/11-quality-hardening-integration`
-**Accepted Canonical Baseline:** `origin/main` @ `9ffa8cd34a8b074690cdffb3a5df3094d19da394`
-**Production Mirror:** `production/main` @ `9ffa8cd34a8b074690cdffb3a5df3094d19da394`
-**Original Stage 11 Base:** `origin/stage/11-quality-hardening` (merge base `ecd813394a09259d489c352edc46ca95d1a0ae65`, head `80453ab2cb8f2345889b97b1595ba55f747ebd77`)
-**Status:** INTEGRATION COMPLETE / FULL QUALITY GATE PASS / READY FOR OWNER MERGE AUTHORIZATION
+**Merge Commit:** `019ae553d96c68a85bfe652f1d1c83ab05b27272`
+**Final Canonical Baseline:** `origin/main` @ `ecb4407840ddcc0a002411e40ebdb88bc92d8fd2`
+**Production Mirror:** `production/main` @ `ecb4407840ddcc0a002411e40ebdb88bc92d8fd2`
+**Deployed Vercel SHA:** `ecb4407840ddcc0a002411e40ebdb88bc92d8fd2` (`https://mariemedere.com`)
+**Status:** COMPLETE / MERGED / POST-MERGE GATE PASS / PRODUCTION SYNC COMPLETE / VERCEL DEPLOYMENT COMPLETE / PRODUCTION QA PASS / OWNER PASSWORD LOGIN VERIFIED / CLOSED
+
 
 ---
 
@@ -69,13 +70,31 @@ All gates passed on `stage/11-quality-hardening-integration`:
 
 ## 6. Boundaries & Invariants Preserved
 
-- **Database / Schema:** ZERO schema changes, migrations, or RLS changes introduced. D036 remains intact.
-- **Production State:** Canonical `origin/main` and production mirror `production/main` remain untouched at `9ffa8cd34a8b074690cdffb3a5df3094d19da394`. No Vercel deployment triggered.
+- **Database / Schema:** ZERO schema changes, migrations, or RLS changes introduced. D036 remains verified and active on hosted Supabase project `eoexnnhqzrkurbqgbtnx`.
+- **Production Synchronization:** Canonical `origin/main` and production mirror `production/main` synchronized at `ecb4407840ddcc0a002411e40ebdb88bc92d8fd2`.
 - **Authentication:** `public.is_admin()` and request-scoped `React.cache(requireAdmin)` remain strictly server-side.
-- **Scope:** Zero reader accounts, zero speculative CMS features, zero public Evidence Folio redesign.
+- **Scope:** Zero reader accounts, zero speculative CMS features, zero public Evidence Folio redesign. Stage 12 remains unstarted.
 
 ---
 
-## 7. Next Actions
+## 7. Production Verification & QA Record (`https://mariemedere.com`)
 
-The Stage 11 integration branch `stage/11-quality-hardening-integration` is complete and verified. It is **ready for owner merge authorization**. No merge to `main`, push to production, or Stage 12 work will proceed without explicit owner authorization.
+1. **Public Route Smoke Tests:** `/`, `/blog`, `/portfolio`, `/about`, `/contact`, `/disclaimer` all verified `200 OK` with valid Evidence Folio layout and page titles.
+2. **Marie Admin Password Authentication:**
+   - Automated verification established Marie's UUID (`9217c58f-a777-4a77-94d9-d4729fcf3cea`), authenticated session validity, `is_admin` RPC authorization, and protected admin routing.
+   - Project owner subsequently manually verified normal production email/password login through `https://mariemedere.com/admin/login` and confirmed successful redirect into the authenticated `/admin` workspace.
+   - Therefore production password authentication is accepted as PASS (zero credentials recorded).
+3. **Admin Protected Workspace:** `/admin`, `/admin/articles`, `/admin/articles?status=draft`, `/admin/categories`, `/admin/media`, `/admin/portfolio`, `/admin/comments`, `/admin/messages`, `/admin/settings` all verified accessible and fully rendered.
+4. **Route-Reactive Navigation:** Sidebar active indicators (`aria-current="page"`) and header titles (`AdminHeaderTitle`) reactively update across all module transitions and query filter changes.
+5. **Browser Back/Forward Navigation:** History traversal reactively synchronizes sidebar highlights and header titles without stale state.
+6. **Article Editor Unsaved-Changes Guard:** `/admin/articles/new` blocks navigation on unsaved edits with accessible confirmation dialog.
+7. **D036 Managed Media Placements:** Canonical slot IDs (`home_hero`, `about_hero`, `portfolio_hero`, `contact_hero`, `author_portrait`, `default_social`) verified live on hosted Supabase and rendered in `/admin/media`.
+
+---
+
+## 8. Final Status & Next Actions
+
+- **Stage 11:** COMPLETE / MERGED / POST-MERGE GATE PASS / PRODUCTION SYNC COMPLETE / VERCEL DEPLOYMENT COMPLETE / PRODUCTION QA PASS / OWNER PASSWORD LOGIN VERIFIED / CLOSED
+- **D036:** HOSTED / VERIFIED
+- **Stage 12:** NOT AUTHORIZED
+- **Next Action:** WAIT FOR EXPLICIT OWNER AUTHORIZATION BEFORE STAGE 12.
