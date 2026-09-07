@@ -1199,5 +1199,29 @@ Server-rendered App Router layouts do not re-render on soft navigation, leaving 
 - Zero reader accounts, zero service role client leakage, and zero schema drift outside D036.
 
 **Approved by:** project owner.
-**Status:** ACTIVE / IMPLEMENTED / MIGRATION DEPLOYED / LOCAL GATE PASS.
+**Status:** ACTIVE / IMPLEMENTED / MIGRATION DEPLOYED / LOCAL GATE PASS / OWNER RATIFIED.
+
+## ACTIVE — D038 — Owner Ratification of D037 Baseline & Stage 11 Structured Integration
+
+**Date:** 2026-09-08
+
+**Decision:**
+1. Explicitly ratify the deployed D037 baseline (`origin/main = 9ffa8cd34a8b074690cdffb3a5df3094d19da394`, `production/main = 9ffa8cd34a8b074690cdffb3a5df3094d19da394`) as the canonical starting point, resolving previous governance ambiguity while preserving D037's reactive client navigation (`AdminNav`, `AdminHeaderTitle`, `resolveAdminRouteState`) and request-scoped `requireAdmin()` auth deduplication via `React.cache()`.
+2. Authorize the structured semantic reintegration of Stage 11 Admin Quality Hardening on a fresh integration branch (`stage/11-quality-hardening-integration`) rather than a direct git merge of `origin/stage/11-quality-hardening`.
+3. Integrate Stage 11 operational dashboard summaries, shared admin UI recipes, confirmation dialogs, unsaved changes editor guard, and responsive admin table layouts without regressing D037 navigation architecture, D036 `site_media_slots` schema/RLS, public Evidence Folio styling, or production behavior.
+4. Synthesize navigation into a single canonical source of truth in `src/lib/admin/navigation.ts`, combining D037 route reactivity with Stage 11 section grouping (`Editorial`, `Audience`, `System`), skip links, and tablet breakpoints.
+5. Recover validated Media corrections (`loading.tsx` accessible status, `admin-media.spec.ts` deterministic pagination cleanup) and resolve test synchronization timeouts in Stage 9 comment moderation and accessibility suites across Chromium, Firefox, and WebKit.
+
+**Reason:**
+A read-only reconciliation audit confirmed that canonical `main` and production advanced with D037 while Stage 11 remained on an earlier merge base (`ecd8133`). Owner ratification establishes canonical truth and authorizes non-conflicting integration on a clean integration branch without touching production.
+
+**Impact:**
+- Canonical baseline is formally recorded and ratified.
+- Full Stage 11 admin hardening features delivered on top of D037 reactive architecture.
+- 0 database mutations, 0 RLS modifications, 0 new production dependencies, 0 public Evidence Folio regressions.
+- Complete quality gate passes (Typecheck, Lint, Prettier, Git diff, 187 Node tests, production build, 63/63 Playwright tests across Chromium/Firefox/WebKit, 323/323 pgTAP tests, 0 schema lint errors, 0 axe serious/critical violations).
+- Production and `main` branches remain completely untouched pending explicit owner merge authorization.
+
+**Approved by:** project owner.
+**Status:** ACTIVE / INTEGRATION COMPLETE / FULL QUALITY GATE PASS / READY FOR OWNER MERGE AUTHORIZATION.
 

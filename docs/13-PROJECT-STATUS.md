@@ -4,21 +4,18 @@ This file is the authoritative repository record of the currently active develop
 
 ## Current status
 
-- **Current stage:** Production Admin Navigation & Performance Hotfix + D036 Hosted Migration — COMPLETE / VERIFIED / MERGED
-- **Stage authorization:** D037 OWNER AUTHORIZED / IMPLEMENTATION COMPLETE / LOCAL QUALITY GATE PASS — 2026-09-07
+- **Current stage:** Stage 11 Admin Quality Hardening Reintegration — INTEGRATION COMPLETE / FULL QUALITY GATE PASS / READY FOR OWNER MERGE AUTHORIZATION
+- **Stage authorization:** D038 OWNER AUTHORIZED / INTEGRATION COMPLETE / FULL QUALITY GATE PASS — 2026-09-08
+- **Ratified canonical baseline:** `origin/main = 9ffa8cd34a8b074690cdffb3a5df3094d19da394`, `production/main = 9ffa8cd34a8b074690cdffb3a5df3094d19da394`
+- **Active integration branch:** `stage/11-quality-hardening-integration`
 - **D036 migration:** `supabase/migrations/20260830090000_managed_public_media_slots.sql` — DEPLOYED TO HOSTED `eoexnnhqzrkurbqgbtnx` / VERIFIED
 - **D036 fixed placements:** `home_hero`, `about_hero`, `portfolio_hero`, `contact_hero`, `author_portrait`, `default_social`
-- **Active working branch:** `main`
-- **Application coding authorized:** NO — HOTFIX COMPLETE / WAITING FOR CANONICAL SYNCHRONIZATION AND PRODUCTION DEPLOYMENT
-- **Gate-2 verification:** PASS — Node 187/187; TypeScript; ESLint; Prettier; production build; staged diff integrity
-- **Local integration merge commit:** `a018704a0d9ed68db3bd49f83c84212d80167ab5`
-- **Local integration merge parents:** first parent `6fc9d6d1618e4308d88abaf9a5757032f619fc5c`; second parent `4682c1b1bc2843a4aea1bd2f16379f9fb08ffe06`
-- **Post-merge quality gate:** PASS — Node 174/174; Playwright 17/17; pgTAP 323/323 rerun after browser mutations; TypeScript; ESLint; Prettier; diff integrity; production build previously PASS on the same application tree
-- **Post-merge deterministic test corrections:** `supabase/tests/database/06_admin_access.test.sql` and `tests/e2e/stage9-settings-portfolio.spec.ts` only; no production application behavior, RLS, abuse limits, schema or UI contract changed
-- **Post-merge runtime recovery:** Docker Desktop/WSL host bind-mount state was repaired locally; no repository/runtime dependency change resulted
-- **Gate-2 branch relationship:** `fix/v1-admin-completion` = 0 behind / 6 ahead of accepted `origin/main` before final governance commit
-- **Accepted main during Gate-2 closeout:** `6fc9d6d1618e4308d88abaf9a5757032f619fc5c`
-- **Merge flow:** OWNER AUTHORIZED — GOVERNANCE CLOSEOUT → COMMIT/PUSH BRANCH → NORMAL MERGE PRESERVING HISTORY → POST-MERGE VERIFICATION
+- **Application coding authorized:** COMPLETED for Stage 11 bounded integration only; Stage 12/public refinement remains NOT AUTHORIZED
+- **Gate verification:** FULL PASS — Node 187/187; Playwright 63/63 (Chromium, Firefox, WebKit); pgTAP 323/323; TypeScript (0 errors); ESLint (0 errors/warnings); Prettier (100% check); git diff check (clean); schema lint (0 errors); axe serious/critical violations 0; production build 20/20 routes PASS
+- **Navigation architecture:** D037 reactive client-route resolution (`usePathname`, `useSearchParams`, `resolveAdminRouteState`) retained as authoritative; Stage 11 section grouping (`Editorial`, `Audience`, `System`), skip link `#admin-main-content`, and tablet breakpoint synthesized into canonical `src/lib/admin/navigation.ts`
+- **Auth deduplication:** `React.cache(requireAdmin)` retained with request-scoped memoization
+- **Database boundary:** ZERO migrations added; D036 unchanged; RLS unchanged; hosted Supabase untouched
+- **Production boundary:** Production remains untouched on D037 (`9ffa8cd`); zero pushes to `main` or `production/main`; zero Vercel redeployments executed
 
 - **D035 design specification:** `docs/37-V1-ADMIN-COMPLETION-DESIGN.md`
 - **Implementation branch:** `fix/v1-admin-completion` — CREATED FROM `6fc9d6d1618e4308d88abaf9a5757032f619fc5c`
