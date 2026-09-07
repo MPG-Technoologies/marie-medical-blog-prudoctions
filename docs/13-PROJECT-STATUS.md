@@ -4,18 +4,20 @@ This file is the authoritative repository record of the currently active develop
 
 ## Current status
 
-- **Current stage:** Stage 11 Admin Quality Hardening Reintegration — INTEGRATION COMPLETE / FULL QUALITY GATE PASS / READY FOR OWNER MERGE AUTHORIZATION
-- **Stage authorization:** D038 OWNER AUTHORIZED / INTEGRATION COMPLETE / FULL QUALITY GATE PASS — 2026-09-08
+- **Current stage:** Stage 11 Admin Quality Hardening — MERGED INTO CANONICAL MAIN / POST-MERGE QUALITY GATE PASS / READY FOR PRODUCTION SYNC & DEPLOYMENT
+- **Stage authorization:** D038 OWNER AUTHORIZED / MERGED TO MAIN / POST-MERGE GATE PASS — 2026-09-08
+- **Merge commit:** `019ae553d96c68a85bfe652f1d1c83ab05b27272`
+- **Merge parents:** first parent `9ffa8cd34a8b074690cdffb3a5df3094d19da394`; second parent `f02b82dd24bfdc51909a9307d0f9a2db1704ba3b`
 - **Ratified canonical baseline:** `origin/main = 9ffa8cd34a8b074690cdffb3a5df3094d19da394`, `production/main = 9ffa8cd34a8b074690cdffb3a5df3094d19da394`
-- **Active integration branch:** `stage/11-quality-hardening-integration`
+- **Active working branch:** `main`
 - **D036 migration:** `supabase/migrations/20260830090000_managed_public_media_slots.sql` — DEPLOYED TO HOSTED `eoexnnhqzrkurbqgbtnx` / VERIFIED
 - **D036 fixed placements:** `home_hero`, `about_hero`, `portfolio_hero`, `contact_hero`, `author_portrait`, `default_social`
 - **Application coding authorized:** COMPLETED for Stage 11 bounded integration only; Stage 12/public refinement remains NOT AUTHORIZED
-- **Gate verification:** FULL PASS — Node 187/187; Playwright 63/63 (Chromium, Firefox, WebKit); pgTAP 323/323; TypeScript (0 errors); ESLint (0 errors/warnings); Prettier (100% check); git diff check (clean); schema lint (0 errors); axe serious/critical violations 0; production build 20/20 routes PASS
+- **Post-merge gate verification:** FULL PASS — Node 187/187; Playwright 63/63 (Chromium, Firefox, WebKit); pgTAP 323/323; TypeScript (0 errors); ESLint (0 errors/warnings); Prettier (100% check); git diff check (clean); schema lint (0 errors); axe serious/critical violations 0; production build 20/20 routes PASS
 - **Navigation architecture:** D037 reactive client-route resolution (`usePathname`, `useSearchParams`, `resolveAdminRouteState`) retained as authoritative; Stage 11 section grouping (`Editorial`, `Audience`, `System`), skip link `#admin-main-content`, and tablet breakpoint synthesized into canonical `src/lib/admin/navigation.ts`
 - **Auth deduplication:** `React.cache(requireAdmin)` retained with request-scoped memoization
 - **Database boundary:** ZERO migrations added; D036 unchanged; RLS unchanged; hosted Supabase untouched
-- **Production boundary:** Production remains untouched on D037 (`9ffa8cd`); zero pushes to `main` or `production/main`; zero Vercel redeployments executed
+- **Production sync & deploy:** Authorizing canonical push, production mirror synchronization, and Vercel deployment of verified merge head
 
 - **D035 design specification:** `docs/37-V1-ADMIN-COMPLETION-DESIGN.md`
 - **Implementation branch:** `fix/v1-admin-completion` — CREATED FROM `6fc9d6d1618e4308d88abaf9a5757032f619fc5c`
