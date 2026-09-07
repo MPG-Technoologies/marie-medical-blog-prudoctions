@@ -60,13 +60,15 @@ test.describe("Stage 9 Admin Moderation & Inbox Workflows E2E", () => {
       page.getByRole("heading", { name: "Comment Moderation" }),
     ).toBeVisible();
 
-    // Verify filter tabs exist (rendered with role="tab")
+    // Verify URL-driven filters use link semantics and expose the current page.
     await expect(
-      page.getByRole("tab", { name: "Pending Review" }),
+      page.getByRole("link", { name: "Pending Review" }),
+    ).toHaveAttribute("aria-current", "page");
+    await expect(page.getByRole("link", { name: "Approved" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Hidden" })).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "All Comments" }),
     ).toBeVisible();
-    await expect(page.getByRole("tab", { name: "Approved" })).toBeVisible();
-    await expect(page.getByRole("tab", { name: "Hidden" })).toBeVisible();
-    await expect(page.getByRole("tab", { name: "All Comments" })).toBeVisible();
 
     // Verify private commenter email is visible in admin
     await expect(page.getByText(commenterEmail)).toBeVisible();
@@ -86,9 +88,11 @@ test.describe("Stage 9 Admin Moderation & Inbox Workflows E2E", () => {
     });
     await approveBtn.click();
 
-    // Wait for reload and verify comment moves out of Pending
-    await page.waitForLoadState("domcontentloaded");
-    await expect(page.getByText(commentBody)).not.toBeVisible();
+    // Server Actions update the current RSC tree rather than causing a new
+    // document load. Wait for the actual moderation result before navigating.
+    await expect(page.getByText(commentBody)).not.toBeVisible({
+      timeout: 10000,
+    });
 
     // 4. Verify approved comment now displays publicly on the live article
     await page.goto("/blog/plain-language-clinical-protocol-summaries");
@@ -113,7 +117,28 @@ test.describe("Stage 9 Admin Moderation & Inbox Workflows E2E", () => {
 
     const hideBtn = approvedCommentCard.getByRole("button", { name: "Hide" });
     await hideBtn.click();
-    await page.waitForLoadState("domcontentloaded");
+
+    // Wait for the Hide action response and its path revalidation to complete.
+    // `domcontentloaded` does not synchronize a Server Action/RSC refresh.
+    await expect(page.getByText(commentBody)).not.toBeVisible({
+      timeout: 10000,
+    });
+
+    const { error: fixtureLoginError } =
+      await fixtureClient.auth.signInWithPassword({
+        email: SYNTHETIC_ADMIN_EMAIL,
+        password: SYNTHETIC_ADMIN_PASSWORD,
+      });
+    expect(fixtureLoginError).toBeNull();
+
+    const { data: hiddenComment, error: hiddenCommentError } =
+      await fixtureClient
+        .from("comments")
+        .select("id, status")
+        .eq("commenter_email", commenterEmail)
+        .single();
+    expect(hiddenCommentError).toBeNull();
+    expect(hiddenComment).toMatchObject({ status: "hidden" });
 
     // Verify comment is no longer visible publicly
     await page.goto("/blog/plain-language-clinical-protocol-summaries");
@@ -134,7 +159,18 @@ test.describe("Stage 9 Admin Moderation & Inbox Workflows E2E", () => {
 
     const deleteBtn = hiddenCommentCard.getByRole("button", { name: "Delete" });
     await deleteBtn.click();
-    await page.waitForLoadState("domcontentloaded");
+    const deleteDialog = page.getByRole("dialog", {
+      name: "Delete this comment?",
+    });
+    await expect(deleteDialog).toBeVisible();
+    await deleteDialog.getByRole("button", { name: "Delete comment" }).click();
+
+    // Server Actions update the current RSC tree rather than causing a new
+    // document load. Wait for the actual moderation result before navigating
+    // so this lifecycle check cannot race the delete request.
+    await expect(page.getByText(commentBody)).not.toBeVisible({
+      timeout: 10000,
+    });
 
     // Verify comment is completely removed from admin
     await page.goto("/admin/comments?status=all");
@@ -176,13 +212,15 @@ test.describe("Stage 9 Admin Moderation & Inbox Workflows E2E", () => {
       page.getByRole("heading", { name: "Contact Inbox" }),
     ).toBeVisible();
 
-    // Verify filter tabs exist (rendered with role="tab")
+    // Verify URL-driven filters use link semantics and expose the current page.
     await expect(
-      page.getByRole("tab", { name: "New Inquiries" }),
+      page.getByRole("link", { name: "New Inquiries" }),
+    ).toHaveAttribute("aria-current", "page");
+    await expect(page.getByRole("link", { name: "Read" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Archived" })).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "All Messages" }),
     ).toBeVisible();
-    await expect(page.getByRole("tab", { name: "Read" })).toBeVisible();
-    await expect(page.getByRole("tab", { name: "Archived" })).toBeVisible();
-    await expect(page.getByRole("tab", { name: "All Messages" })).toBeVisible();
 
     // Locate seeded contact message
     const messageSubject =

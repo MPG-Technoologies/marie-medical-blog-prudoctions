@@ -65,7 +65,9 @@ test("Media upload, reuse, usage guard, keyboard focus, accessibility, and respo
     await page
       .locator("#media-upload-input")
       .setInputFiles({ name: filename, mimeType: "image/png", buffer: PNG });
-    await expect(page.getByRole("status")).toContainText("Uploaded");
+    await expect(page.getByRole("status")).toContainText("Uploaded", {
+      timeout: 15000,
+    });
     await expect(
       page.getByText(new RegExp(filename), { exact: false }).first(),
     ).toBeVisible();
@@ -90,7 +92,7 @@ test("Media upload, reuse, usage guard, keyboard focus, accessibility, and respo
     await page.getByRole("button", { name: "Use selected image" }).click();
     await expect(
       page.getByText("Alt text is required when a featured image is attached."),
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 15000 });
     await page
       .getByLabel("Alt Text (Required) *")
       .fill("Synthetic one-pixel image for local Media verification");
@@ -124,6 +126,9 @@ test("Media upload, reuse, usage guard, keyboard focus, accessibility, and respo
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/admin/media");
+    await expect(
+      page.getByRole("heading", { name: "Media Management" }),
+    ).toBeVisible();
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth > window.innerWidth + 1,
@@ -146,16 +151,26 @@ test("Media upload, reuse, usage guard, keyboard focus, accessibility, and respo
       .from("articles")
       .update({ featured_image_path: null, featured_image_alt: null })
       .eq("id", ARTICLE_ID);
-    const library = await admin.storage
-      .from("draft-assets")
-      .list("library", { limit: 100, search: filename });
+    const libraryMatches: string[] = [];
+    for (let offset = 0; ; offset += 100) {
+      const library = await admin.storage
+        .from("draft-assets")
+        .list("library", { limit: 100, offset });
+      const entries = library.data ?? [];
+      libraryMatches.push(
+        ...entries
+          .filter((item) => item.name.includes(filename))
+          .map((item) => `library/${item.name}`),
+      );
+      if (library.error || entries.length < 100) break;
+    }
     await admin.storage
       .from("draft-assets")
       .remove([
         ...(copied.data ?? [])
           .filter((item) => item.name.includes(filename))
           .map((item) => `${articleFolder}/${item.name}`),
-        ...(library.data ?? []).map((item) => `library/${item.name}`),
+        ...libraryMatches,
       ]);
   }
 });
