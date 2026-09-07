@@ -1,15 +1,15 @@
+import type { ComponentType } from "react";
 import {
-  LayoutDashboard,
-  FileText,
+  Briefcase,
   FileEdit,
+  FileText,
   FolderTree,
   Image,
-  Briefcase,
-  MessageSquare,
+  LayoutDashboard,
   Mail,
+  MessageSquare,
   Settings,
 } from "lucide-react";
-import type { ComponentType } from "react";
 
 export type AdminModuleId =
   | "dashboard"
@@ -22,6 +22,8 @@ export type AdminModuleId =
   | "messages"
   | "settings";
 
+export type AdminModule = AdminModuleId;
+
 export interface AdminNavItem {
   label: string;
   href: string;
@@ -29,52 +31,86 @@ export interface AdminNavItem {
   id: AdminModuleId;
 }
 
-export const adminNavItems: AdminNavItem[] = [
+export interface AdminNavGroup {
+  label: string;
+  items: AdminNavItem[];
+}
+
+export const adminNavGroups: AdminNavGroup[] = [
   {
-    label: "Dashboard",
-    href: "/admin",
-    icon: LayoutDashboard,
-    id: "dashboard",
+    label: "Workspace",
+    items: [
+      {
+        label: "Dashboard",
+        href: "/admin",
+        icon: LayoutDashboard,
+        id: "dashboard",
+      },
+    ],
   },
   {
-    label: "Articles",
-    href: "/admin/articles",
-    icon: FileText,
-    id: "articles",
+    label: "Content & publishing",
+    items: [
+      {
+        label: "Articles",
+        href: "/admin/articles",
+        icon: FileText,
+        id: "articles",
+      },
+      {
+        label: "Drafts",
+        href: "/admin/articles?status=draft",
+        icon: FileEdit,
+        id: "drafts",
+      },
+      {
+        label: "Categories",
+        href: "/admin/categories",
+        icon: FolderTree,
+        id: "categories",
+      },
+      { label: "Media", href: "/admin/media", icon: Image, id: "media" },
+      {
+        label: "Portfolio",
+        href: "/admin/portfolio",
+        icon: Briefcase,
+        id: "portfolio",
+      },
+    ],
   },
   {
-    label: "Drafts",
-    href: "/admin/articles?status=draft",
-    icon: FileEdit,
-    id: "drafts",
+    label: "Inbox & review",
+    items: [
+      {
+        label: "Comments",
+        href: "/admin/comments",
+        icon: MessageSquare,
+        id: "comments",
+      },
+      {
+        label: "Messages",
+        href: "/admin/messages",
+        icon: Mail,
+        id: "messages",
+      },
+    ],
   },
   {
-    label: "Categories",
-    href: "/admin/categories",
-    icon: FolderTree,
-    id: "categories",
-  },
-  { label: "Media", href: "/admin/media", icon: Image, id: "media" },
-  {
-    label: "Portfolio",
-    href: "/admin/portfolio",
-    icon: Briefcase,
-    id: "portfolio",
-  },
-  {
-    label: "Comments",
-    href: "/admin/comments",
-    icon: MessageSquare,
-    id: "comments",
-  },
-  { label: "Messages", href: "/admin/messages", icon: Mail, id: "messages" },
-  {
-    label: "Settings",
-    href: "/admin/settings",
-    icon: Settings,
-    id: "settings",
+    label: "Configuration",
+    items: [
+      {
+        label: "Settings",
+        href: "/admin/settings",
+        icon: Settings,
+        id: "settings",
+      },
+    ],
   },
 ];
+
+export const adminNavItems: AdminNavItem[] = adminNavGroups.flatMap(
+  (group) => group.items,
+);
 
 export function resolveAdminRouteState(
   pathname: string,

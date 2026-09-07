@@ -23,11 +23,18 @@ export function AdminShell({
   actions,
 }: AdminShellProps) {
   return (
-    <div className="flex min-h-screen bg-[#F6F1E8] font-sans text-foreground">
+    <div className="admin-workspace flex min-h-screen bg-parchment font-sans text-foreground">
+      <a
+        href="#admin-main-content"
+        className="fixed top-3 left-3 z-[100] -translate-y-20 rounded-md bg-ink px-4 py-2 text-sm font-semibold text-paper shadow-lg transition-transform duration-[var(--admin-motion-fast)] focus:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-slate focus-visible:ring-offset-2 focus-visible:ring-offset-parchment motion-reduce:transition-none"
+      >
+        Skip to admin content
+      </a>
+
       {/* Desktop Sidebar */}
       <aside
         aria-label="Admin Sidebar"
-        className="hidden border-r border-[#D2C9BC] bg-[#FFFDF9] md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col"
+        className="hidden border-r border-subtle-divider bg-paper xl:fixed xl:inset-y-0 xl:flex xl:w-64 xl:flex-col"
       >
         {/* Brand identity */}
         <div className="flex h-16 items-center justify-between border-b border-[#D2C9BC] px-6">
@@ -86,7 +93,7 @@ export function AdminShell({
       </aside>
 
       {/* Main workspace container */}
-      <div className="flex min-w-0 flex-1 flex-col md:pl-64">
+      <div className="flex min-w-0 flex-1 flex-col xl:pl-64">
         {/* Top Header */}
         <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-[#D2C9BC] bg-[#F6F1E8]/90 px-5 backdrop-blur-xs sm:px-8">
           <div className="flex items-center gap-3">
@@ -98,7 +105,11 @@ export function AdminShell({
         </header>
 
         {/* Workspace Canvas */}
-        <main className="w-full max-w-[1248px] min-w-0 flex-1 p-5 sm:p-8">
+        <main
+          id="admin-main-content"
+          tabIndex={-1}
+          className="w-full max-w-[1248px] min-w-0 flex-1 p-5 focus:outline-none sm:p-8"
+        >
           {children}
         </main>
       </div>
