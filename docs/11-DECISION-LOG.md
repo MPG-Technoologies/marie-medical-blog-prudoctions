@@ -1274,3 +1274,48 @@ The project owner authorized this narrowly bounded launch verification stage fol
 
 **Approved by:** project owner.
 **Status:** ACTIVE / STAGE 12 LIMITED SCOPE AUTHORIZED.
+
+## ACTIVE — D040 — Stage 12 Limited SEO, Search Console & Analytics Launch Closeout
+
+**Date:** 2026-09-08
+
+**Confirmation & Closeout:**
+1. **Canonical Production Domain & Routing:**
+   - Canonical apex origin `https://mariemedere.com` confirmed as authoritative across all metadata, canonical tags, Open Graph, Twitter cards, sitemap, robots, and JSON-LD.
+   - Zero `.vercel.app` or `localhost` canonical leakage across all routes.
+   - `www.mariemedere.com` routing confirmed redirecting to canonical apex `https://mariemedere.com`.
+2. **SEO Production Audit:**
+   - Full live production audit on `https://mariemedere.com` PASSED 100%.
+   - Static public pages (`/`, `/about`, `/blog`, `/portfolio`, `/contact`, `/disclaimer`) return `200 OK` with unique titles and accurate descriptions.
+   - `/robots.txt` explicitly disallows `/admin` and `/admin/` and specifies canonical sitemap.
+   - `/sitemap.xml` returns `200 OK`, containing exactly 6 canonical public URLs and 0 admin, private, draft, or archived URLs.
+   - Search/filter query variants (`/blog?q=...`, `/blog?topic=...`, `/blog?page=2`) render `robots: noindex, follow` and canonicalize to clean `/blog`.
+3. **Google Search Console Verification & Sitemap Submission:**
+   - Domain property `mariemedere.com` ownership successfully VERIFIED via DNS TXT record.
+   - Sitemap `https://mariemedere.com/sitemap.xml` submitted and PROCESSED SUCCESSFULLY with 6 discovered pages reported by Google Search Console.
+   - Homepage URL Inspection (`https://mariemedere.com/`): Google Index confirms "URL is on Google"; Live Test confirms "URL is available to Google" and "Page can be indexed". (Previous stale crawl notice confirmed resolved by live test).
+   - Blog URL Inspection (`https://mariemedere.com/blog`): Google Index reports "Discovered — currently not indexed" (normal new-site state); Live Test confirms "URL is available to Google" and "Page can be indexed".
+   - Published article URL Inspection: NOT APPLICABLE — NO PUBLISHED ARTICLE EXISTS in production database.
+   - Public non-empty topic inspection: NOT APPLICABLE — NO ELIGIBLE TOPIC EXISTS.
+4. **Structured Data Classification:**
+   - `BlogPosting` JSON-LD generator and schema validation: PASS (100% compliant with Schema.org validator, 0 errors).
+   - Live production published-article Rich Results Test: NOT APPLICABLE YET (deferred to routine operational check when Marie publishes first real article, without reopening architecture).
+5. **Vercel Web Analytics & Privacy Boundary:**
+   - Live production runtime verification confirms Vercel Web Analytics is ACTIVE on `https://mariemedere.com`.
+   - Public page views permitted with normalized paths.
+   - Search query strings (`?q=...`) and hash fragments completely stripped before transmission.
+   - Admin routes (`/admin/*`) discarded by `beforeSend` privacy filter; zero admin telemetry transmitted.
+   - Zero Google Analytics, zero Google Tag Manager, zero third-party tracking pixels, zero custom events.
+6. **Security Closeout Check:**
+   - Exposed transient diagnostic token confirmed revoked/invalidated.
+   - Zero credentials, auth tokens, passwords, cookies, or verification TXT strings committed.
+7. **Application & Database Boundary:**
+   - Application code changes: 0. Supabase migrations: 0. RLS changes: 0. Dependencies: 0.
+8. **Explicit Exclusions Preserved:**
+   - Normal broader Stage 12 tasks (client content replacement, CV/profile population, training, article creation, category population, UI redesign, CMS features) remain excluded per limited owner authorization.
+9. **Project State:**
+   - Stage 12 Limited Scope is formally CLOSED.
+   - V1 Application is PRODUCTION LIVE and VERIFIED.
+
+**Approved by:** project owner.
+**Status:** ACTIVE / STAGE 12 LIMITED SCOPE COMPLETE / PRODUCTION VERIFIED / CLOSED.

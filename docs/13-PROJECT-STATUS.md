@@ -4,37 +4,46 @@ This file is the authoritative repository record of the currently active develop
 
 ## Current status
 
-- **Current stage:** Stage 12 Limited SEO, Search Console & Analytics Launch Check — ACTIVE
-- **Stage authorization:** OWNER AUTHORIZED — 2026-09-08 (LIMITED SCOPE: SEO + GOOGLE SEARCH CONSOLE + VERCEL ANALYTICS ONLY)
+- **Current stage:** Stage 12 Limited SEO, Search Console & Analytics Launch Check — COMPLETE / PRODUCTION VERIFIED / CLOSED
+- **Stage authorization:** D039 OWNER AUTHORIZED / D040 CLOSED — 2026-09-08 (LIMITED SCOPE: SEO + GOOGLE SEARCH CONSOLE + VERCEL ANALYTICS ONLY)
 - **Canonical production baseline:** `ecb4407840ddcc0a002411e40ebdb88bc92d8fd2`
 - **Merge commit:** `019ae553d96c68a85bfe652f1d1c83ab05b27272`
 - **Merge parents:** first parent `9ffa8cd34a8b074690cdffb3a5df3094d19da394`; second parent `f02b82dbac7408780f4460d768697fed8cc22817`
-- **Canonical repository (`origin/main`):** `techwithmpg/Marie-medical-blog` synchronized at `0b3dbeddb46f98c2f8a51429bacd47df037bae09`
-- **Production mirror (`production/main`):** `MPG-Technoologies/marie-medical-blog-prudoctions` synchronized at `0b3dbeddb46f98c2f8a51429bacd47df037bae09`
+- **Canonical repository (`origin/main`):** `techwithmpg/Marie-medical-blog` synchronized at `4cd043aeea2c8bb8bdf3bd234f615614a5e28f05`
+- **Production mirror (`production/main`):** `MPG-Technoologies/marie-medical-blog-prudoctions` synchronized at `4cd043aeea2c8bb8bdf3bd234f615614a5e28f05`
 - **Active working branch:** `main`
-- **Vercel production deployment:** DEPLOYED (`ecb4407840ddcc0a002411e40ebdb88bc92d8fd2`) to canonical domain `https://mariemedere.com` and Vercel alias `https://marie-medical-blog-prudoctions.vercel.app`
+- **Vercel production deployment:** DEPLOYED (`ecb4407840ddcc0a002411e40ebdb88bc92d8fd2`) to canonical domain `https://mariemedere.com`
+- **Canonical domain & routing:** `https://mariemedere.com` is production canonical; `www.mariemedere.com` routing confirmed 308 redirect to apex `https://mariemedere.com`
 - **Hosted Supabase project:** `eoexnnhqzrkurbqgbtnx` (Active / Healthy)
 - **D036 migration:** `supabase/migrations/20260830090000_managed_public_media_slots.sql` — DEPLOYED TO HOSTED `eoexnnhqzrkurbqgbtnx` / VERIFIED
 - **D036 canonical slot IDs:** `home_hero`, `about_hero`, `portfolio_hero`, `contact_hero`, `author_portrait`, `default_social` (all verified active and rendered in admin UI)
 - **Post-merge quality gate on canonical `main`:** FULL PASS — Node 187/187; TypeScript (0 errors); ESLint (0 errors, 0 warnings); Prettier (100% check); git diff check (clean); Next.js production build 20/20 routes PASS (compiled in 14.0s)
 - **Production verification & QA results (`https://mariemedere.com`):**
   - **Public route smoke tests:** `/`, `/blog`, `/portfolio`, `/about`, `/contact`, `/disclaimer` all return `200 OK` with valid Evidence Folio layout and page titles.
-  - **Marie admin password authentication:**
-    1. Automated verification established Marie's UUID (`9217c58f-a777-4a77-94d9-d4729fcf3cea`), authenticated session validity, `is_admin` RPC authorization, and protected admin routing.
-    2. Project owner subsequently manually verified normal production email/password login through `https://mariemedere.com/admin/login` and confirmed successful redirect into the authenticated `/admin` workspace.
-    Therefore production password authentication is accepted as PASS (zero exposure of credentials).
-  - **Admin protected workspace:** `/admin` (dashboard with 9 summary/activity metrics), `/admin/articles` (article table), `/admin/articles?status=draft` (filtered query view), `/admin/categories`, `/admin/media` (media listing and managed public media slots), `/admin/portfolio`, `/admin/comments` (moderation workspace), `/admin/messages` (contact inbox), `/admin/settings` all verified accessible (`200 OK`) and fully rendered.
-  - **Route-reactive navigation:** Sidebar active indicators (`aria-current="page"`) and header titles (`AdminHeaderTitle`) reactively update across all module switches and query filter transitions (`?status=draft`).
+  - **Marie admin password authentication:** Automated verification established Marie's UUID (`9217c58f-a777-4a77-94d9-d4729fcf3cea`), authenticated session validity, `is_admin` RPC authorization, and protected admin routing. Project owner manually verified email/password login through `https://mariemedere.com/admin/login` and confirmed successful redirect into `/admin`.
+  - **Admin protected workspace:** `/admin`, `/admin/articles`, `/admin/articles?status=draft`, `/admin/categories`, `/admin/media`, `/admin/portfolio`, `/admin/comments`, `/admin/messages`, `/admin/settings` all verified accessible (`200 OK`) and fully rendered.
+  - **Route-reactive navigation:** Sidebar active indicators (`aria-current="page"`) and header titles (`AdminHeaderTitle`) reactively update across all module switches and query filter transitions.
   - **Browser Back/Forward navigation:** History traversal reactively synchronizes sidebar active highlights and header titles without stuck state.
   - **Article editor unsaved-changes guard:** `/admin/articles/new` dirty state triggers accessible confirmation dialog on navigation attempts and preserves content when canceled.
   - **D036 managed media slots:** Verified live on hosted database and rendered in `/admin/media`.
-- **Navigation architecture:** D037 reactive client-route resolution (`usePathname`, `useSearchParams`, `resolveAdminRouteState`) retained as authoritative; Stage 11 section grouping (`Editorial`, `Audience`, `System`), skip link `#admin-main-content`, and tablet breakpoint synthesized into canonical `src/lib/admin/navigation.ts`.
-- **Auth deduplication:** `React.cache(requireAdmin)` retained with request-scoped memoization.
-- **Database boundary:** ZERO migrations added; D036 unchanged; RLS unchanged; hosted Supabase untouched.
+- **Stage 12 Limited Launch Verification Results:**
+  - **SEO Production Audit:** PASS — canonical authority `https://mariemedere.com`; 0 `.vercel.app` or `localhost` leaks; valid page titles, meta descriptions, Open Graph, and Twitter metadata; `/robots.txt` disallows `/admin` and points to canonical sitemap; `/sitemap.xml` contains exactly 6 canonical public URLs and 0 private/admin/draft URLs.
+  - **Google Search Console Domain Property:** `mariemedere.com` — VERIFIED via DNS TXT.
+  - **Sitemap Submission:** `https://mariemedere.com/sitemap.xml` — PROCESSED SUCCESSFULLY (6 discovered pages).
+  - **Homepage URL Inspection (`https://mariemedere.com/`):** ON GOOGLE; Live Test confirms AVAILABLE TO GOOGLE / CAN BE INDEXED.
+  - **Blog URL Inspection (`https://mariemedere.com/blog`):** DISCOVERED — currently not indexed (normal new-site state); Live Test confirms AVAILABLE TO GOOGLE / CAN BE INDEXED.
+  - **Published Article & Topic Inspection:** NOT APPLICABLE — NO PUBLISHED PRODUCTION ARTICLE EXISTS.
+  - **Structured Data Classification:** `BlogPosting` generator and Schema.org validation PASS (0 errors); live published-article Rich Results Test NOT APPLICABLE YET (deferred to operational check on first real article publication).
+  - **Vercel Web Analytics & Privacy:** ACTIVE / PASS — page view beacons successfully received on `https://mariemedere.com`; search queries stripped (`/blog?q=...` -> `/blog`); fragments stripped; admin routes (`/admin/*`) completely discarded; 0 GA, 0 GTM, 0 ad pixels, 0 custom events.
+  - **Security Check:** Exposed transient diagnostic token confirmed revoked/invalidated; zero credentials committed.
 - **Stage 11 status:** COMPLETE / MERGED / POST-MERGE GATE PASS / PRODUCTION SYNC COMPLETE / VERCEL DEPLOYMENT COMPLETE / PRODUCTION QA PASS / OWNER PASSWORD LOGIN VERIFIED / CLOSED
-- **Stage 12 status:** ACTIVE / LIMITED SCOPE AUTHORIZED (SEO + GOOGLE SEARCH CONSOLE + VERCEL ANALYTICS ONLY)
-- **Stage 12 explicit exclusions:** No client-content replacement, CV/profile population, training, article creation, UI redesign, new CMS features, database schema changes, Supabase migrations, dependency additions, Google Analytics, GTM, ad pixels, or custom analytics events.
-- **Next action:** Execute production SEO audit on mariemedere.com, verify/setup Google Search Console and submit sitemap, and verify/activate Vercel Analytics with privacy filtering.
+- **Stage 12 status:** COMPLETE / SEO PASS / SEARCH CONSOLE VERIFIED / SITEMAP SUBMITTED / ANALYTICS PASS / CLOSED
+- **Stage 12 explicit exclusions preserved:** No client-content replacement, CV/profile population, training, article creation, UI redesign, new CMS features, database schema changes, Supabase migrations, dependency additions, Google Analytics, GTM, ad pixels, or custom analytics events.
+- **Project Baseline Summary:**
+  - Stage 0 through Stage 11: COMPLETE / CLOSED
+  - Stage 12 LIMITED SCOPE: COMPLETE / CLOSED
+  - V1 APPLICATION: PRODUCTION LIVE / VERIFIED
+- **Next action:** V1 production launch verification complete. All technical development stages closed. Await owner direction for routine editorial/client content onboarding.
 
 - **D035 design specification:** `docs/37-V1-ADMIN-COMPLETION-DESIGN.md`
 - **Implementation branch:** `fix/v1-admin-completion` — CREATED FROM `6fc9d6d1618e4308d88abaf9a5757032f619fc5c`
