@@ -1252,6 +1252,25 @@ A read-only reconciliation audit confirmed that canonical `main` and production 
    - **Article editor unsaved-changes guard:** `/admin/articles/new` blocks navigation on unsaved edits with accessible confirmation dialog.
    - **D036 managed media slots:** Canonical slot IDs (`home_hero`, `about_hero`, `portfolio_hero`, `contact_hero`, `author_portrait`, `default_social`) verified live on hosted Supabase `eoexnnhqzrkurbqgbtnx` and rendered in the admin UI.
 6. Zero database migrations added (D036 remains verified on hosted Supabase). Zero changes to RLS, Auth allowlist, Marie's account, dependencies, or public Evidence Folio design.
-7. Stage 11 is formally CLOSED. Stage 12 remains NOT AUTHORIZED.
+7. Stage 11 is formally CLOSED.
 
 **Status:** ACTIVE / STAGE 11 COMPLETE / MERGED / POST-MERGE GATE PASS / PRODUCTION SYNC COMPLETE / VERCEL DEPLOYMENT COMPLETE / PRODUCTION QA PASS / OWNER PASSWORD LOGIN VERIFIED / CLOSED.
+
+## ACTIVE — D039 — Stage 12 Limited SEO, Search Console & Analytics Launch Authorization
+
+**Date:** 2026-09-08
+
+**Decision:**
+Authorizes Stage 12 with strictly bounded scope limited to:
+1. Production SEO verification and narrowly required corrections on `https://mariemedere.com`.
+2. Google Search Console setup/verification, sitemap submission, and indexing diagnostics for `mariemedere.com`.
+3. Vercel Web Analytics activation/verification and privacy validation under existing `@vercel/analytics` and `beforeSend` filtering.
+
+**Explicit Exclusions:**
+No client-content replacement, CV/profile population, training, article creation, UI redesign, new CMS features, database schema changes, Supabase migrations, dependency additions, Google Analytics, Google Tag Manager, advertising pixels, or custom analytics events.
+
+**Reason:**
+The project owner authorized this narrowly bounded launch verification stage following the completed and verified Stage 11 closeout.
+
+**Approved by:** project owner.
+**Status:** ACTIVE / STAGE 12 LIMITED SCOPE AUTHORIZED.
