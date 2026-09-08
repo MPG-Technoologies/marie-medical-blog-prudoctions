@@ -9,8 +9,8 @@ This file is the authoritative repository record of the currently active develop
 - **Canonical production baseline:** `ecb4407840ddcc0a002411e40ebdb88bc92d8fd2`
 - **Merge commit:** `019ae553d96c68a85bfe652f1d1c83ab05b27272`
 - **Merge parents:** first parent `9ffa8cd34a8b074690cdffb3a5df3094d19da394`; second parent `f02b82dbac7408780f4460d768697fed8cc22817`
-- **Canonical repository (`origin/main`):** `techwithmpg/Marie-medical-blog` synchronized at `4cd043aeea2c8bb8bdf3bd234f615614a5e28f05`
-- **Production mirror (`production/main`):** `MPG-Technoologies/marie-medical-blog-prudoctions` synchronized at `4cd043aeea2c8bb8bdf3bd234f615614a5e28f05`
+- **Canonical repository (`origin/main`):** `techwithmpg/Marie-medical-blog` synchronized at `b7dbc9ea56b2208ea6aa684f74ebad6fa4e4ead1`
+- **Production mirror (`production/main`):** `MPG-Technoologies/marie-medical-blog-prudoctions` synchronized at `b7dbc9ea56b2208ea6aa684f74ebad6fa4e4ead1`
 - **Active working branch:** `main`
 - **Vercel production deployment:** DEPLOYED (`ecb4407840ddcc0a002411e40ebdb88bc92d8fd2`) to canonical domain `https://mariemedere.com`
 - **Canonical domain & routing:** `https://mariemedere.com` is production canonical; `www.mariemedere.com` routing confirmed 308 redirect to apex `https://mariemedere.com`
