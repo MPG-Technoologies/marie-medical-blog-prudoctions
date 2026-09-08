@@ -4,8 +4,8 @@ This file is the authoritative repository record of the currently active develop
 
 ## Current status
 
-- **Current stage:** Post-V1 Evidence Folio Brand Icon & Motion Polish — OWNER AUTHORIZED / VISUAL REVIEW REQUIRED
-- **Stage authorization:** D041 OWNER AUTHORIZED — 2026-09-08 (STATUS: POST-V1 PUBLIC POLISH — OWNER AUTHORIZED / VISUAL REVIEW REQUIRED)
+- **Current stage:** Post-V1 Evidence Folio Brand Icon, Motion & Responsive Hero Art Direction Polish — OWNER AUTHORIZED / VISUAL REVIEW REQUIRED
+- **Stage authorization:** D041 (Brand Icon & Motion Polish) + D042 (Responsive Hero Art Direction) OWNER AUTHORIZED — 2026-09-08 (STATUS: POST-V1 PUBLIC POLISH — OWNER AUTHORIZED / VISUAL REVIEW REQUIRED)
 - **Previous stage:** Stage 12 Limited SEO, Search Console & Analytics Launch Check — COMPLETE / PRODUCTION VERIFIED / CLOSED
 - **Starting canonical baseline:** `e2dc7e0fcef2dd13fe72fdce9ac574ca4dda90c2`
 - **Canonical production baseline:** `ecb4407840ddcc0a002411e40ebdb88bc92d8fd2`

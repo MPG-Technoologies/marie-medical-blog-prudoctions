@@ -14,6 +14,10 @@ import { getPublicProfile, getPublicSiteSettings } from "@/lib/public-data";
 import { getPublicRouteDiscoveryMetadata } from "@/lib/site-url";
 import { getPublicSiteMediaSlot } from "@/lib/public-site-media";
 import {
+  HomeHeroArtDirection,
+  HomeHeroMobileArtDirection,
+} from "@/components/public/home-hero-art-direction";
+import {
   getFeaturedPublishedArticle,
   getLatestPublishedArticles,
   getPortfolioPublishedArticles,
@@ -103,8 +107,8 @@ export default async function HomePage() {
             </>
           ) : null}
 
-          <div className="relative z-10 grid min-h-[430px] items-center md:grid-cols-12 md:gap-0 lg:min-h-[480px]">
-            <div className="max-w-[88%] py-12 md:col-span-6 md:max-w-none md:pr-10 lg:col-span-5 lg:pr-6">
+          <div className="relative z-10 grid min-h-[430px] items-stretch md:grid-cols-12 md:gap-0 lg:min-h-[480px]">
+            <div className="flex flex-col justify-center py-10 sm:py-12 md:col-span-6 md:pr-10 lg:col-span-5 lg:pr-6">
               <div className="hero-composition-enter hero-enter-delay-1 flex flex-wrap items-center gap-3">
                 <FolioMarker number={1} label="Publication Masthead" />
                 <TopicImprint variant="oxide">Medical Writing</TopicImprint>
@@ -147,6 +151,13 @@ export default async function HomePage() {
                   Selected Writing
                 </Link>
               </div>
+
+              {/* Mobile art-directed visual (< 768px): placed below primary hero copy with soft feathering */}
+              {!homeHero ? (
+                <div className="hero-composition-enter hero-enter-delay-5">
+                  <HomeHeroMobileArtDirection />
+                </div>
+              ) : null}
             </div>
 
             {homeHero ? (
@@ -168,7 +179,11 @@ export default async function HomePage() {
                   className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#F6F1E8]/35 to-transparent"
                 />
               </div>
-            ) : null}
+            ) : (
+              <div className="hero-composition-enter hero-enter-delay-5 relative hidden self-stretch md:col-span-6 md:block lg:col-span-7 lg:-mr-6 xl:-mr-10">
+                <HomeHeroArtDirection />
+              </div>
+            )}
           </div>
         </section>
         {/* Sections 02 + 03: Latest Articles & Explore Topics */}

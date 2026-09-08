@@ -1335,3 +1335,23 @@ No website redesign, no new features, no new content, no schema changes, no data
 
 **Approved by:** project owner.
 **Status:** ACTIVE / POST-V1 PUBLIC POLISH — OWNER AUTHORIZED / VISUAL REVIEW REQUIRED.
+
+## ACTIVE — D042 — Homepage Responsive Editorial Hero Art Direction
+
+**Date:** 2026-09-08
+
+**Decision:**
+Authorizes a bounded visual extension to the post-V1 Evidence Folio polish pass on branch `post-v1/evidence-folio-polish` for homepage responsive editorial hero art direction.
+1. Installs the three owner-approved art-directed neutral editorial workspace assets (`marie-home-hero-desktop.png`, `marie-home-hero-tablet.png`, `marie-home-hero-mobile.png`) as the default production hero visual.
+2. Implements responsive breakpoint art direction using framework-native Next.js 16 `getImageProps` with `<picture>`:
+   - Desktop (>= 1024px): 16:9 wide landscape, right-weighted composition with long soft Evidence Folio parchment (`#F6F1E8`) feathering.
+   - Tablet (768px–1023px): 4:3 tighter landscape composition with soft left parchment feathering.
+   - Mobile (< 768px): 9:16 portrait composition placed below primary hero typography and CTAs so photography does not compromise text readability, with subtle upper parchment feathering.
+3. Preserves D036 `home_hero` managed media slot compatibility: when a custom `home_hero` asset is uploaded via Admin Media in the future, it automatically takes precedence.
+4. Preserves D041 motion tokens and `@media (prefers-reduced-motion: reduce)` overrides: hero visual participates only in the ~280ms settle entrance sequence.
+
+**Explicit Exclusions:**
+Zero schema changes, zero database migrations, zero RLS changes, zero auth changes, zero dependency additions, zero website redesign, zero main merge, zero production deployment. Awaits owner visual review.
+
+**Approved by:** project owner.
+**Status:** ACTIVE / POST-V1 RESPONSIVE HERO EXTENSION — OWNER AUTHORIZED / VISUAL REVIEW REQUIRED.
