@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import {
   Sheet,
@@ -29,6 +30,7 @@ const navItems: NavItem[] = [
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false);
+  const pathname = usePathname();
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -56,16 +58,30 @@ export function MobileNav() {
             aria-label="Mobile Navigation"
             className="mt-8 flex flex-col space-y-1"
           >
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="flex h-12 items-center rounded-md px-3 font-sans text-base font-medium text-[#242321] transition-colors hover:bg-[#E8E2D7] hover:text-[#7B3F35] focus-visible:ring-2 focus-visible:ring-[#265D7A] focus-visible:outline-none"
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const isActive =
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname === item.href ||
+                    pathname.startsWith(`${item.href}/`);
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  aria-current={isActive ? "page" : undefined}
+                  className={cn(
+                    "flex h-12 items-center rounded-md px-3 font-sans text-base font-medium transition-colors duration-[160ms] focus-visible:ring-2 focus-visible:ring-[#265D7A] focus-visible:outline-none",
+                    isActive
+                      ? "border-l-2 border-[#7B3F35] bg-[#E8E2D7]/55 pl-2.5 font-semibold text-[#7B3F35]"
+                      : "text-[#242321] hover:bg-[#E8E2D7] hover:text-[#7B3F35]",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
         </div>
 

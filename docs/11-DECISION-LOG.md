@@ -1319,3 +1319,19 @@ The project owner authorized this narrowly bounded launch verification stage fol
 
 **Approved by:** project owner.
 **Status:** ACTIVE / STAGE 12 LIMITED SCOPE COMPLETE / PRODUCTION VERIFIED / CLOSED.
+
+## ACTIVE — D041 — Post-V1 Evidence Folio Brand Icon & Motion Polish
+
+**Date:** 2026-09-08
+
+**Decision:**
+Authorizes one bounded post-V1 public refinement pass on dedicated branch `post-v1/evidence-folio-polish` starting from accepted canonical `main` (`e2dc7e0fcef2dd13fe72fdce9ac574ca4dda90c2`).
+Scope is strictly limited to:
+1. Installing the owner-approved Marie Medere browser/tab icon system using the owner-supplied transparent "M" asset (`media_1788830284972.png`).
+2. Adding restrained professional CSS-first motion and micro-interaction polish to the existing public Evidence Folio website following the principle of quiet editorial craftsmanship.
+
+**Explicit Exclusions:**
+No website redesign, no new features, no new content, no schema changes, no database migrations, no RLS changes, no auth changes, no SEO architecture changes, no dependency additions (no Framer Motion, GSAP, or third-party animation libraries), no universal scroll-animation frameworks, no changes to admin UI, no direct work on `main`, no merge into `main`, no push to production mirror, and no production deployment. Owner visual approval is strictly required before any merge or release.
+
+**Approved by:** project owner.
+**Status:** ACTIVE / POST-V1 PUBLIC POLISH — OWNER AUTHORIZED / VISUAL REVIEW REQUIRED.

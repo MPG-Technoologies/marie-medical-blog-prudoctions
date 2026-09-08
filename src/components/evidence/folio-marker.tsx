@@ -20,7 +20,7 @@ export function FolioMarker({
   return (
     <span
       className={cn(
-        "inline-flex items-baseline gap-2 font-serif text-sm font-medium tracking-tight text-[#7B3F35]",
+        "inline-flex items-baseline gap-2 font-serif text-sm font-medium tracking-tight text-[#7B3F35] transition-colors duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-[#68332A]",
         className,
       )}
       aria-hidden={decorative ? "true" : undefined}

@@ -1,6 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { MobileNav } from "@/components/site/mobile-nav";
+import { SiteNavLinks } from "@/components/site/site-nav-links";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -43,20 +44,7 @@ export function SiteHeader({
         </Link>
 
         {/* Desktop Navigation */}
-        <nav
-          aria-label="Main Navigation"
-          className="ml-auto hidden items-center gap-[clamp(1.25rem,2.2vw,2.75rem)] lg:flex"
-        >
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="rounded-xs py-1 font-sans text-sm font-medium text-[#5E5953] transition-colors hover:text-[#7B3F35] focus-visible:ring-2 focus-visible:ring-[#265D7A] focus-visible:outline-none"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
+        <SiteNavLinks links={navLinks} />
 
         {/* CTA & Mobile Menu */}
         <div className="flex shrink-0 items-center gap-3 lg:ml-[clamp(1.25rem,2vw,2.5rem)]">

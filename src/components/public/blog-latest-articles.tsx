@@ -114,7 +114,7 @@ export function BlogLatestArticles({
           return (
             <article
               key={article.id}
-              className="group relative border-b border-subtle-divider py-5 xl:px-5 xl:not-[&:nth-child(3n+1)]:border-l xl:not-[&:nth-child(3n+1)]:border-subtle-divider xl:first:pl-0 xl:nth-[3n]:pr-0 xl:nth-[3n+1]:pl-0"
+              className="group relative border-b border-subtle-divider py-5 transition-colors duration-[220ms] group-hover:border-[#918579]/50 xl:px-5 xl:not-[&:nth-child(3n+1)]:border-l xl:not-[&:nth-child(3n+1)]:border-subtle-divider xl:first:pl-0 xl:nth-[3n]:pr-0 xl:nth-[3n+1]:pl-0"
             >
               <div className="grid grid-cols-[112px_minmax(0,1fr)] gap-4 sm:grid-cols-[124px_minmax(0,1fr)]">
                 <div className="relative aspect-[4/3] overflow-hidden border border-subtle-divider bg-[#EEE6DA]">
@@ -124,7 +124,7 @@ export function BlogLatestArticles({
                       alt={article.featured_image_alt}
                       fill
                       sizes="(max-width: 640px) 112px, 124px"
-                      className="object-cover object-center transition-transform duration-300 ease-out group-hover:scale-[1.02] motion-reduce:transform-none"
+                      className="object-cover object-center transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.018] motion-reduce:transform-none"
                     />
                   ) : (
                     <div className="text-brand-oxide/70 flex h-full w-full flex-col items-center justify-center">
@@ -148,7 +148,7 @@ export function BlogLatestArticles({
                     </p>
                   )}
 
-                  <h3 className="group-hover:text-brand-oxide mt-2 font-serif text-[1.05rem] leading-[1.12] font-medium tracking-tight text-ink transition-colors sm:text-[1.12rem]">
+                  <h3 className="group-hover:text-brand-oxide mt-2 font-serif text-[1.05rem] leading-[1.12] font-medium tracking-tight text-ink transition-colors duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:text-[1.12rem]">
                     <Link href={`/blog/${article.slug}`}>
                       <span aria-hidden="true" className="absolute inset-0" />
                       {article.title}

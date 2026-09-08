@@ -105,24 +105,24 @@ export default async function HomePage() {
 
           <div className="relative z-10 grid min-h-[430px] items-center md:grid-cols-12 md:gap-0 lg:min-h-[480px]">
             <div className="max-w-[88%] py-12 md:col-span-6 md:max-w-none md:pr-10 lg:col-span-5 lg:pr-6">
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="hero-composition-enter hero-enter-delay-1 flex flex-wrap items-center gap-3">
                 <FolioMarker number={1} label="Publication Masthead" />
                 <TopicImprint variant="oxide">Medical Writing</TopicImprint>
               </div>
 
-              <h1 className="mt-7 font-serif text-4xl leading-[1.02] font-medium tracking-tight text-[#242321] sm:text-5xl lg:text-[4rem]">
+              <h1 className="hero-composition-enter hero-enter-delay-2 mt-7 font-serif text-4xl leading-[1.02] font-medium tracking-tight text-[#242321] sm:text-5xl lg:text-[4rem]">
                 {siteTitle}
               </h1>
 
-              <p className="mt-5 max-w-lg font-serif text-xl leading-snug text-[#7B3F35] sm:text-2xl">
+              <p className="hero-composition-enter hero-enter-delay-3 mt-5 max-w-lg font-serif text-xl leading-snug text-[#7B3F35] sm:text-2xl">
                 {tagline}
               </p>
 
-              <p className="mt-7 max-w-xl font-sans text-base leading-relaxed text-[#5E5953] sm:text-lg">
+              <p className="hero-composition-enter hero-enter-delay-4 mt-7 max-w-xl font-sans text-base leading-relaxed text-[#5E5953] sm:text-lg">
                 {introText}
               </p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-3">
+              <div className="hero-composition-enter hero-enter-delay-4 mt-8 flex flex-wrap items-center gap-3">
                 <Link
                   href="/blog"
                   className={cn(
@@ -150,7 +150,7 @@ export default async function HomePage() {
             </div>
 
             {homeHero ? (
-              <div className="relative hidden h-full min-h-[430px] md:col-span-6 md:block lg:col-span-7 lg:-mr-6">
+              <div className="hero-composition-enter hero-enter-delay-5 relative hidden h-full min-h-[430px] md:col-span-6 md:block lg:col-span-7 lg:-mr-6">
                 <ManagedSiteImage
                   media={homeHero}
                   priority
@@ -189,9 +189,18 @@ export default async function HomePage() {
 
                 <Link
                   href="/portfolio"
-                  className="text-brand-oxide hidden text-[0.68rem] font-semibold tracking-wide hover:underline sm:inline-flex"
+                  className="group/link text-brand-oxide hidden items-center gap-1 text-[0.68rem] font-semibold tracking-wide transition-colors duration-[160ms] hover:text-[#582A22] sm:inline-flex"
                 >
-                  View all writing →
+                  <span className="relative">
+                    View all writing
+                    <span
+                      aria-hidden="true"
+                      className="absolute right-0 bottom-0 left-0 h-[1px] origin-left scale-x-0 bg-current transition-transform duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/link:scale-x-100 motion-reduce:transition-none"
+                    />
+                  </span>
+                  <span className="inline-block transition-transform duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/link:translate-x-1 motion-reduce:transform-none">
+                    →
+                  </span>
                 </Link>
               </div>
 
@@ -208,18 +217,18 @@ export default async function HomePage() {
                     <Link
                       key={article.id}
                       href={`/blog/${article.slug}`}
-                      className="group relative border-t border-subtle-divider pt-4"
+                      className="group relative border-t border-subtle-divider pt-4 transition-colors duration-[220ms] group-hover:border-[#918579]/50"
                     >
                       <div className="flex items-start gap-3">
                         <FileText
                           aria-hidden="true"
                           strokeWidth={1.45}
-                          className="text-brand-oxide mt-0.5 h-4 w-4 shrink-0"
+                          className="text-brand-oxide mt-0.5 h-4 w-4 shrink-0 transition-transform duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0.5 motion-reduce:transform-none"
                         />
 
                         <div className="min-w-0">
                           <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                            <span className="text-brand-oxide font-serif text-[0.72rem]">
+                            <span className="text-brand-oxide font-serif text-[0.72rem] transition-colors duration-[180ms] group-hover:text-[#68332A]">
                               {String(index + 1).padStart(2, "0")}
                             </span>
 
@@ -230,7 +239,7 @@ export default async function HomePage() {
                             )}
                           </div>
 
-                          <h3 className="group-hover:text-brand-oxide mt-2 font-serif text-[1.03rem] leading-[1.14] font-medium tracking-tight text-ink transition-colors">
+                          <h3 className="group-hover:text-brand-oxide mt-2 font-serif text-[1.03rem] leading-[1.14] font-medium tracking-tight text-ink transition-colors duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)]">
                             {article.title}
                           </h3>
                         </div>

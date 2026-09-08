@@ -68,7 +68,7 @@ export async function ArticleListItem({
 
       <h3
         className={cn(
-          "group-hover:text-brand-oxide mt-3 font-serif leading-[1.16] font-medium tracking-tight text-ink transition-colors",
+          "group-hover:text-brand-oxide mt-3 font-serif leading-[1.16] font-medium tracking-tight text-ink transition-colors duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
           variant === "compact"
             ? "text-lg sm:text-xl"
             : "text-xl sm:text-[1.55rem]",
@@ -87,8 +87,11 @@ export async function ArticleListItem({
       )}
 
       <div className="mt-4">
-        <span className="text-brand-oxide text-xs font-medium">
-          Read entry →
+        <span className="text-brand-oxide inline-flex items-center gap-1 text-xs font-medium transition-colors duration-[160ms]">
+          Read entry{" "}
+          <span className="inline-block transition-transform duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1 motion-reduce:transform-none">
+            →
+          </span>
         </span>
       </div>
     </div>
@@ -98,7 +101,7 @@ export async function ArticleListItem({
     return (
       <article
         className={cn(
-          "group relative grid grid-cols-[1fr_112px] gap-5 border-t border-subtle-divider py-5 sm:grid-cols-[1fr_138px]",
+          "group relative grid grid-cols-[1fr_112px] gap-5 border-t border-subtle-divider py-5 transition-colors duration-[220ms] group-hover:border-[#918579]/50 sm:grid-cols-[1fr_138px]",
           className,
         )}
       >
@@ -111,7 +114,7 @@ export async function ArticleListItem({
             )}
           </div>
 
-          <h3 className="group-hover:text-brand-oxide mt-3 font-serif text-lg leading-[1.15] font-medium tracking-tight text-ink transition-colors sm:text-xl">
+          <h3 className="group-hover:text-brand-oxide mt-3 font-serif text-lg leading-[1.15] font-medium tracking-tight text-ink transition-colors duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:text-xl">
             <Link href={`/blog/${article.slug}`}>
               <span className="absolute inset-0" aria-hidden="true" />
               {article.title}
@@ -125,8 +128,11 @@ export async function ArticleListItem({
           </div>
 
           <div className="mt-3">
-            <span className="text-brand-oxide text-xs font-medium">
-              Read entry →
+            <span className="text-brand-oxide inline-flex items-center gap-1 text-xs font-medium transition-colors duration-[160ms]">
+              Read entry{" "}
+              <span className="inline-block transition-transform duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1 motion-reduce:transform-none">
+                →
+              </span>
             </span>
           </div>
         </div>
@@ -138,7 +144,7 @@ export async function ArticleListItem({
               alt={article.featured_image_alt}
               fill
               sizes="138px"
-              className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.015] motion-reduce:transform-none"
+              className="object-cover transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.018] motion-reduce:transform-none"
             />
           </div>
         ) : (
@@ -154,7 +160,7 @@ export async function ArticleListItem({
     return (
       <article
         className={cn(
-          "group relative grid gap-5 border-b border-subtle-divider py-5 sm:grid-cols-[190px_1fr]",
+          "group relative grid gap-5 border-b border-subtle-divider py-5 transition-colors duration-[220ms] group-hover:border-[#918579]/50 sm:grid-cols-[190px_1fr]",
           className,
         )}
       >
@@ -165,7 +171,7 @@ export async function ArticleListItem({
               alt={article.featured_image_alt}
               fill
               sizes="(max-width: 640px) 100vw, 190px"
-              className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.015] motion-reduce:transform-none"
+              className="object-cover transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.018] motion-reduce:transform-none"
             />
           </div>
         ) : (
@@ -180,7 +186,7 @@ export async function ArticleListItem({
   return (
     <article
       className={cn(
-        "group relative border-t border-subtle-divider pt-4",
+        "group relative border-t border-subtle-divider pt-4 transition-colors duration-[220ms] group-hover:border-[#918579]/50",
         variant === "compact" ? "pb-4" : "pb-6",
         className,
       )}
@@ -196,7 +202,7 @@ export async function ArticleListItem({
                 ? "(max-width: 768px) 100vw, 280px"
                 : "(max-width: 768px) 100vw, 50vw"
             }
-            className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.015] motion-reduce:transform-none"
+            className="object-cover transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.018] motion-reduce:transform-none"
           />
 
           <div
