@@ -9,14 +9,10 @@ import { TopicImprint } from "@/components/evidence/topic-imprint";
 import { MedicalDisclaimer } from "@/components/public/medical-disclaimer";
 import { HomeContactBanner } from "@/components/public/home-contact-banner";
 import { HomeDiscoverySections } from "@/components/public/home-discovery-sections";
-import { ManagedSiteImage } from "@/components/public/managed-site-image";
 import { getPublicProfile, getPublicSiteSettings } from "@/lib/public-data";
 import { getPublicRouteDiscoveryMetadata } from "@/lib/site-url";
 import { getPublicSiteMediaSlot } from "@/lib/public-site-media";
-import {
-  HomeHeroArtDirection,
-  HomeHeroMobileArtDirection,
-} from "@/components/public/home-hero-art-direction";
+import { HeroMediaPresentation } from "@/components/public/hero-media-presentation";
 import {
   getFeaturedPublishedArticle,
   getLatestPublishedArticles,
@@ -89,26 +85,15 @@ export default async function HomePage() {
       <div className="space-y-16 sm:space-y-24">
         {/* Section 01: Professional & Editorial Positioning */}
         <section className="relative isolate overflow-hidden">
-          {homeHero ? (
-            <>
-              <div className="absolute inset-y-0 right-[-12%] w-[76%] md:hidden">
-                <ManagedSiteImage
-                  media={homeHero}
-                  priority
-                  sizes="76vw"
-                  className="h-full w-full"
-                />
-              </div>
-
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-r from-[#F6F1E8] via-[#F6F1E8]/96 via-[58%] to-[#F6F1E8]/20 md:hidden"
-              />
-            </>
-          ) : null}
-
           <div className="relative z-10 grid min-h-[430px] items-stretch md:grid-cols-12 md:gap-0 lg:min-h-[480px]">
-            <div className="flex flex-col justify-center py-10 sm:py-12 md:col-span-6 md:pr-10 lg:col-span-5 lg:pr-6">
+            <div
+              className={cn(
+                "flex flex-col justify-center py-10 sm:py-12 md:pr-10 lg:pr-6",
+                homeHero
+                  ? "md:col-span-6 lg:col-span-5"
+                  : "md:col-span-10 lg:col-span-8",
+              )}
+            >
               <div className="hero-composition-enter hero-enter-delay-1 flex flex-wrap items-center gap-3">
                 <FolioMarker number={1} label="Publication Masthead" />
                 <TopicImprint variant="oxide">Medical Writing</TopicImprint>
@@ -152,38 +137,32 @@ export default async function HomePage() {
                 </Link>
               </div>
 
-              {/* Mobile art-directed visual (< 768px): placed below primary hero copy with soft feathering */}
-              {!homeHero ? (
-                <div className="hero-composition-enter hero-enter-delay-5">
-                  <HomeHeroMobileArtDirection />
+              {/* Mobile art-directed visual (< 768px): placed below primary hero copy with clean presentation */}
+              {homeHero ? (
+                <div className="hero-composition-enter hero-enter-delay-5 mt-8 w-full md:hidden">
+                  <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-xs sm:aspect-[3/4] sm:max-w-md">
+                    <HeroMediaPresentation
+                      media={homeHero}
+                      priority
+                      sizes="(max-width: 768px) 90vw, 430px"
+                      viewport="mobile"
+                      slot="home_hero"
+                    />
+                  </div>
                 </div>
               ) : null}
             </div>
 
             {homeHero ? (
-              <div className="hero-composition-enter hero-enter-delay-5 relative hidden h-full min-h-[430px] md:col-span-6 md:block lg:col-span-7 lg:-mr-6">
-                <ManagedSiteImage
+              <div className="hero-composition-enter hero-enter-delay-5 relative hidden self-stretch md:col-span-6 md:block lg:col-span-7 lg:-mr-6 xl:-mr-10">
+                <HeroMediaPresentation
                   media={homeHero}
                   priority
-                  sizes="(max-width: 1024px) 50vw, 58vw"
-                  className="absolute inset-0"
-                />
-
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#F6F1E8] to-transparent lg:w-32"
-                />
-
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#F6F1E8]/35 to-transparent"
+                  sizes="(min-width: 1280px) 55vw, (min-width: 1024px) 58vw, 50vw"
+                  slot="home_hero"
                 />
               </div>
-            ) : (
-              <div className="hero-composition-enter hero-enter-delay-5 relative hidden self-stretch md:col-span-6 md:block lg:col-span-7 lg:-mr-6 xl:-mr-10">
-                <HomeHeroArtDirection />
-              </div>
-            )}
+            ) : null}
           </div>
         </section>
         {/* Sections 02 + 03: Latest Articles & Explore Topics */}

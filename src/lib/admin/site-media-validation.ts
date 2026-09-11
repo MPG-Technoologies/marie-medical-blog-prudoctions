@@ -60,7 +60,22 @@ export const SITE_MEDIA_SLOT_META: Record<
   },
 };
 
+export const HERO_MEDIA_SLOTS = [
+  "home_hero",
+  "about_hero",
+  "portfolio_hero",
+  "contact_hero",
+] as const;
+
+export type HeroMediaSlot = (typeof HERO_MEDIA_SLOTS)[number];
+
+export function isHeroMediaSlot(slot: string): slot is HeroMediaSlot {
+  return (HERO_MEDIA_SLOTS as readonly string[]).includes(slot);
+}
+
 const focal = z.number().int().min(0).max(100);
+const zoom = z.number().int().min(100).max(180);
+const feather = z.number().int().min(0).max(100);
 
 export const siteMediaPresentationSchema = z
   .object({
@@ -75,6 +90,17 @@ export const siteMediaPresentationSchema = z
 
     mobileFocalX: focal,
     mobileFocalY: focal,
+
+    desktopZoom: zoom.optional().default(100),
+    mobileZoom: zoom.optional().default(100),
+
+    desktopFeatherStart: feather.optional().default(0),
+    desktopFeatherWidth: feather.optional().default(100),
+    desktopFeatherStrength: feather.optional().default(0),
+
+    mobileFeatherStart: feather.optional().default(0),
+    mobileFeatherWidth: feather.optional().default(100),
+    mobileFeatherStrength: feather.optional().default(0),
   })
   .superRefine((value, ctx) => {
     if (value.slot === "author_portrait" && value.isDecorative) {
@@ -110,9 +136,9 @@ export const clearSiteMediaSchema = z.object({
   slot: z.enum(SITE_MEDIA_SLOTS),
 });
 
-export type AssignSiteMediaInput = z.infer<typeof assignSiteMediaSchema>;
+export type AssignSiteMediaInput = z.input<typeof assignSiteMediaSchema>;
 
-export type SiteMediaPresentationInput = z.infer<
+export type SiteMediaPresentationInput = z.input<
   typeof siteMediaPresentationSchema
 >;
 

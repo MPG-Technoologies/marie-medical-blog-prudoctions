@@ -19,6 +19,14 @@ export interface PublicSiteMediaPlacement {
   desktopFocalY: number;
   mobileFocalX: number;
   mobileFocalY: number;
+  desktopZoom: number;
+  mobileZoom: number;
+  desktopFeatherStart: number;
+  desktopFeatherWidth: number;
+  desktopFeatherStrength: number;
+  mobileFeatherStart: number;
+  mobileFeatherWidth: number;
+  mobileFeatherStrength: number;
 }
 
 /*
@@ -41,6 +49,14 @@ interface SiteMediaRow {
   desktop_focal_y: number | null;
   mobile_focal_x: number | null;
   mobile_focal_y: number | null;
+  desktop_zoom?: number | null;
+  mobile_zoom?: number | null;
+  desktop_feather_start?: number | null;
+  desktop_feather_width?: number | null;
+  desktop_feather_strength?: number | null;
+  mobile_feather_start?: number | null;
+  mobile_feather_width?: number | null;
+  mobile_feather_strength?: number | null;
 }
 
 function normalizeFocal(value: unknown): number {
@@ -48,6 +64,26 @@ function normalizeFocal(value: unknown): number {
 
   if (!Number.isFinite(parsed)) {
     return 50;
+  }
+
+  return Math.max(0, Math.min(100, parsed));
+}
+
+function normalizeZoom(value: unknown): number {
+  const parsed = Number(value);
+
+  if (!Number.isFinite(parsed)) {
+    return 100;
+  }
+
+  return Math.max(100, Math.min(180, parsed));
+}
+
+function normalizePercentage(value: unknown, fallback: number): number {
+  const parsed = Number(value);
+
+  if (!Number.isFinite(parsed)) {
+    return fallback;
   }
 
   return Math.max(0, Math.min(100, parsed));
@@ -71,6 +107,14 @@ async function getPublicSiteMediaPlacementUncached(
           "desktop_focal_y",
           "mobile_focal_x",
           "mobile_focal_y",
+          "desktop_zoom",
+          "mobile_zoom",
+          "desktop_feather_start",
+          "desktop_feather_width",
+          "desktop_feather_strength",
+          "mobile_feather_start",
+          "mobile_feather_width",
+          "mobile_feather_strength",
         ].join(", "),
       )
       .eq("slot", slot)
@@ -109,6 +153,20 @@ async function getPublicSiteMediaPlacementUncached(
       desktopFocalY: normalizeFocal(data.desktop_focal_y),
       mobileFocalX: normalizeFocal(data.mobile_focal_x),
       mobileFocalY: normalizeFocal(data.mobile_focal_y),
+      desktopZoom: normalizeZoom(data.desktop_zoom),
+      mobileZoom: normalizeZoom(data.mobile_zoom),
+      desktopFeatherStart: normalizePercentage(data.desktop_feather_start, 0),
+      desktopFeatherWidth: normalizePercentage(data.desktop_feather_width, 100),
+      desktopFeatherStrength: normalizePercentage(
+        data.desktop_feather_strength,
+        0,
+      ),
+      mobileFeatherStart: normalizePercentage(data.mobile_feather_start, 0),
+      mobileFeatherWidth: normalizePercentage(data.mobile_feather_width, 100),
+      mobileFeatherStrength: normalizePercentage(
+        data.mobile_feather_strength,
+        0,
+      ),
     };
   } catch {
     return null;

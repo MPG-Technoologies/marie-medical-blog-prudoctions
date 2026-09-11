@@ -20,6 +20,7 @@ import {
 } from "@/lib/public-data";
 import { getPublicSiteMediaPlacement } from "@/lib/public-site-media";
 import { getPublicRouteDiscoveryMetadata } from "@/lib/site-url";
+import { HeroMediaPresentation } from "@/components/public/hero-media-presentation";
 
 const PAGE_TITLE = "Portfolio";
 
@@ -119,8 +120,6 @@ export default async function PortfolioPage({
     ? (imageUrls[featuredArticles[0].id] ?? null)
     : null;
 
-  const mastheadImageUrl = portfolioHero?.publicUrl ?? mastheadFallback;
-
   const mastheadAlt = portfolioHero
     ? portfolioHero.isDecorative
       ? ""
@@ -162,21 +161,23 @@ export default async function PortfolioPage({
               </p>
             </div>
 
-            {mastheadImageUrl && (
-              <figure className="relative hidden overflow-hidden bg-[#EEE6DA] md:block">
+            {portfolioHero ? (
+              <figure className="relative hidden overflow-hidden rounded-xs bg-[#EEE6DA] md:block">
+                <HeroMediaPresentation
+                  media={portfolioHero}
+                  priority
+                  sizes="44vw"
+                  slot="portfolio_hero"
+                />
+              </figure>
+            ) : mastheadFallback ? (
+              <figure className="relative hidden overflow-hidden rounded-xs bg-[#EEE6DA] md:block">
                 <Image
-                  src={mastheadImageUrl}
+                  src={mastheadFallback}
                   alt={mastheadAlt}
                   fill
                   priority
                   sizes="44vw"
-                  style={
-                    portfolioHero
-                      ? {
-                          objectPosition: `${portfolioHero.desktopFocalX}% ${portfolioHero.desktopFocalY}%`,
-                        }
-                      : undefined
-                  }
                   className="object-cover"
                 />
 
@@ -185,7 +186,7 @@ export default async function PortfolioPage({
                   className="pointer-events-none absolute inset-y-0 left-0 w-[20%] bg-gradient-to-r from-[#F6F1E8] via-[#F6F1E8]/55 to-transparent"
                 />
               </figure>
-            )}
+            ) : null}
           </div>
 
           {/* Functional portfolio category filters */}

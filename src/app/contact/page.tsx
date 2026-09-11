@@ -6,7 +6,7 @@ import { ContactFormShell } from "@/components/public/contact-form-shell";
 import { EvidenceRail } from "@/components/evidence/evidence-rail";
 import { SplitRule } from "@/components/evidence/split-rule";
 import { MedicalDisclaimer } from "@/components/public/medical-disclaimer";
-import { ManagedSiteImage } from "@/components/public/managed-site-image";
+import { HeroMediaPresentation } from "@/components/public/hero-media-presentation";
 import { getPublicSiteSettings } from "@/lib/public-data";
 import { getPublicRouteDiscoveryMetadata } from "@/lib/site-url";
 import { getPublicSiteMediaSlot } from "@/lib/public-site-media";
@@ -50,12 +50,14 @@ export default async function ContactPage() {
 
           {contactHero ? (
             <div className="hidden md:col-span-5 md:block">
-              <ManagedSiteImage
-                media={contactHero}
-                priority
-                sizes="42vw"
-                className="aspect-[4/3] w-full"
-              />
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xs bg-[#EEE6DA]">
+                <HeroMediaPresentation
+                  media={contactHero}
+                  priority
+                  sizes="42vw"
+                  slot="contact_hero"
+                />
+              </div>
             </div>
           ) : null}
         </div>
