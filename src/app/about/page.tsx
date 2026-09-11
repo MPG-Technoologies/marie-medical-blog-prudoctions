@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import {
   BookOpen,
@@ -21,6 +20,7 @@ import {
 } from "@/lib/public-data";
 import { getPublicSiteMediaSlot } from "@/lib/public-site-media";
 import { getPublicRouteDiscoveryMetadata } from "@/lib/site-url";
+import { HeroMediaPresentation } from "@/components/public/hero-media-presentation";
 import { cn } from "@/lib/utils";
 
 const PAGE_TITLE = "About";
@@ -170,22 +170,12 @@ export default async function AboutPage() {
             </div>
 
             {aboutHero && (
-              <figure className="relative mt-6 aspect-[16/9] overflow-hidden bg-[#EEE6DA] md:mt-0 md:aspect-auto md:min-h-[380px] lg:min-h-[420px]">
-                <Image
-                  src={aboutHero.publicUrl}
-                  alt={aboutHero.isDecorative ? "" : aboutHero.altText}
-                  fill
+              <figure className="relative mt-6 aspect-[16/9] overflow-hidden rounded-xs bg-[#EEE6DA] md:mt-0 md:aspect-auto md:min-h-[380px] lg:min-h-[420px]">
+                <HeroMediaPresentation
+                  media={aboutHero}
                   priority
                   sizes="(max-width: 768px) 100vw, 52vw"
-                  style={{
-                    objectPosition: `${aboutHero.desktopFocalX}% ${aboutHero.desktopFocalY}%`,
-                  }}
-                  className="object-cover"
-                />
-
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-y-0 left-0 hidden w-[18%] bg-gradient-to-r from-[#F6F1E8] via-[#F6F1E8]/55 to-transparent md:block"
+                  slot="about_hero"
                 />
               </figure>
             )}

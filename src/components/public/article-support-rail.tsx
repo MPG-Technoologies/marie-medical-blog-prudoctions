@@ -131,7 +131,7 @@ export function ArticleSupportRail({
                         alt={article.featured_image_alt}
                         fill
                         sizes="84px"
-                        className="object-cover"
+                        className="object-cover transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.018] motion-reduce:transform-none"
                       />
                     ) : (
                       <div className="flex h-full items-center justify-center">
@@ -145,7 +145,7 @@ export function ArticleSupportRail({
                   </div>
 
                   <div className="min-w-0">
-                    <h3 className="group-hover:text-brand-oxide font-serif text-[0.82rem] leading-[1.12] font-medium text-ink transition-colors">
+                    <h3 className="group-hover:text-brand-oxide font-serif text-[0.82rem] leading-[1.12] font-medium text-ink transition-colors duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)]">
                       {article.title}
                     </h3>
 

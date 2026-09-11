@@ -47,6 +47,14 @@ function placementFromRow(
     desktop_focal_y: number;
     mobile_focal_x: number;
     mobile_focal_y: number;
+    desktop_zoom?: number;
+    mobile_zoom?: number;
+    desktop_feather_start?: number;
+    desktop_feather_width?: number;
+    desktop_feather_strength?: number;
+    mobile_feather_start?: number;
+    mobile_feather_width?: number;
+    mobile_feather_strength?: number;
   },
 ): AdminSiteMediaPlacement {
   const meta = SITE_MEDIA_SLOT_META[row.slot];
@@ -67,6 +75,17 @@ function placementFromRow(
 
     mobileFocalX: row.mobile_focal_x,
     mobileFocalY: row.mobile_focal_y,
+
+    desktopZoom: row.desktop_zoom ?? 100,
+    mobileZoom: row.mobile_zoom ?? 100,
+
+    desktopFeatherStart: row.desktop_feather_start ?? 0,
+    desktopFeatherWidth: row.desktop_feather_width ?? 100,
+    desktopFeatherStrength: row.desktop_feather_strength ?? 0,
+
+    mobileFeatherStart: row.mobile_feather_start ?? 0,
+    mobileFeatherWidth: row.mobile_feather_width ?? 100,
+    mobileFeatherStrength: row.mobile_feather_strength ?? 0,
 
     previewUrl: getSiteMediaPublicUrl(supabase, row.storage_path),
   };
@@ -122,6 +141,14 @@ export async function assignSiteMediaAction(
     desktopFocalY,
     mobileFocalX,
     mobileFocalY,
+    desktopZoom,
+    mobileZoom,
+    desktopFeatherStart,
+    desktopFeatherWidth,
+    desktopFeatherStrength,
+    mobileFeatherStart,
+    mobileFeatherWidth,
+    mobileFeatherStrength,
   } = parsed.data;
 
   const supabase = await createClient();
@@ -219,6 +246,22 @@ export async function assignSiteMediaAction(
         mobile_focal_x: mobileFocalX,
 
         mobile_focal_y: mobileFocalY,
+
+        desktop_zoom: desktopZoom,
+
+        mobile_zoom: mobileZoom,
+
+        desktop_feather_start: desktopFeatherStart,
+
+        desktop_feather_width: desktopFeatherWidth,
+
+        desktop_feather_strength: desktopFeatherStrength,
+
+        mobile_feather_start: mobileFeatherStart,
+
+        mobile_feather_width: mobileFeatherWidth,
+
+        mobile_feather_strength: mobileFeatherStrength,
       },
 
       {
@@ -234,7 +277,15 @@ export async function assignSiteMediaAction(
       desktop_focal_x,
       desktop_focal_y,
       mobile_focal_x,
-      mobile_focal_y
+      mobile_focal_y,
+      desktop_zoom,
+      mobile_zoom,
+      desktop_feather_start,
+      desktop_feather_width,
+      desktop_feather_strength,
+      mobile_feather_start,
+      mobile_feather_width,
+      mobile_feather_strength
     `,
     )
     .single();
@@ -290,6 +341,14 @@ export async function updateSiteMediaPresentationAction(
     desktopFocalY,
     mobileFocalX,
     mobileFocalY,
+    desktopZoom,
+    mobileZoom,
+    desktopFeatherStart,
+    desktopFeatherWidth,
+    desktopFeatherStrength,
+    mobileFeatherStart,
+    mobileFeatherWidth,
+    mobileFeatherStrength,
   } = parsed.data;
 
   const supabase = await createClient();
@@ -308,6 +367,22 @@ export async function updateSiteMediaPresentationAction(
       mobile_focal_x: mobileFocalX,
 
       mobile_focal_y: mobileFocalY,
+
+      desktop_zoom: desktopZoom,
+
+      mobile_zoom: mobileZoom,
+
+      desktop_feather_start: desktopFeatherStart,
+
+      desktop_feather_width: desktopFeatherWidth,
+
+      desktop_feather_strength: desktopFeatherStrength,
+
+      mobile_feather_start: mobileFeatherStart,
+
+      mobile_feather_width: mobileFeatherWidth,
+
+      mobile_feather_strength: mobileFeatherStrength,
     })
     .eq("slot", slot)
     .select(
@@ -319,7 +394,15 @@ export async function updateSiteMediaPresentationAction(
       desktop_focal_x,
       desktop_focal_y,
       mobile_focal_x,
-      mobile_focal_y
+      mobile_focal_y,
+      desktop_zoom,
+      mobile_zoom,
+      desktop_feather_start,
+      desktop_feather_width,
+      desktop_feather_strength,
+      mobile_feather_start,
+      mobile_feather_width,
+      mobile_feather_strength
     `,
     )
     .maybeSingle();

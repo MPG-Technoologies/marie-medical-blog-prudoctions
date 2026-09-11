@@ -27,7 +27,9 @@ import { cn } from "@/lib/utils";
 import { ConfirmationDialog } from "@/components/admin/confirmation-dialog";
 
 interface Props {
-  initialPlacements: AdminSiteMediaPlacement[];
+  placements: AdminSiteMediaPlacement[];
+  onPlacementChange?: (placement: AdminSiteMediaPlacement) => void;
+  targetSlot?: SiteMediaSlot | null;
 }
 
 const FOCAL_OPTIONS = [
@@ -85,9 +87,19 @@ function FocalGrid({
   );
 }
 
-export function SiteMediaPlacements({ initialPlacements }: Props) {
-  const [placements, setPlacements] =
-    React.useState<AdminSiteMediaPlacement[]>(initialPlacements);
+export function SiteMediaPlacements({
+  placements,
+  onPlacementChange,
+  targetSlot,
+}: Props) {
+  React.useEffect(() => {
+    if (targetSlot) {
+      const el = document.getElementById(`slot-${targetSlot}`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }
+  }, [targetSlot]);
 
   const [pickerOpen, setPickerOpen] = React.useState(false);
 
@@ -197,12 +209,6 @@ export function SiteMediaPlacements({ initialPlacements }: Props) {
     setEditorOpen(true);
   }
 
-  function updatePlacement(placement: AdminSiteMediaPlacement) {
-    setPlacements((current) =>
-      current.map((item) => (item.slot === placement.slot ? placement : item)),
-    );
-  }
-
   async function savePlacement() {
     if (!activeSlot) {
       return;
@@ -226,6 +232,22 @@ export function SiteMediaPlacements({ initialPlacements }: Props) {
         mobileFocalX: mobileX,
 
         mobileFocalY: mobileY,
+
+        desktopZoom: activePlacement?.desktopZoom ?? 100,
+
+        mobileZoom: activePlacement?.mobileZoom ?? 100,
+
+        desktopFeatherStart: activePlacement?.desktopFeatherStart ?? 0,
+
+        desktopFeatherWidth: activePlacement?.desktopFeatherWidth ?? 100,
+
+        desktopFeatherStrength: activePlacement?.desktopFeatherStrength ?? 0,
+
+        mobileFeatherStart: activePlacement?.mobileFeatherStart ?? 0,
+
+        mobileFeatherWidth: activePlacement?.mobileFeatherWidth ?? 100,
+
+        mobileFeatherStrength: activePlacement?.mobileFeatherStrength ?? 0,
       };
 
       const result = candidate
@@ -242,7 +264,7 @@ export function SiteMediaPlacements({ initialPlacements }: Props) {
         return;
       }
 
-      updatePlacement(result.placement);
+      onPlacementChange?.(result.placement);
 
       setCandidate(null);
       setEditorOpen(false);
@@ -264,23 +286,28 @@ export function SiteMediaPlacements({ initialPlacements }: Props) {
         setError(result.error ?? "Unable to clear the website image.");
         return;
       }
-      setPlacements((current) =>
-        current.map((item) =>
-          item.slot === placement.slot
-            ? {
-                ...item,
-                storagePath: null,
-                previewUrl: null,
-                altText: null,
-                isDecorative: false,
-                desktopFocalX: 50,
-                desktopFocalY: 50,
-                mobileFocalX: 50,
-                mobileFocalY: 50,
-              }
-            : item,
-        ),
-      );
+
+      const cleared: AdminSiteMediaPlacement = {
+        ...placement,
+        storagePath: null,
+        previewUrl: null,
+        altText: null,
+        isDecorative: false,
+        desktopFocalX: 50,
+        desktopFocalY: 50,
+        mobileFocalX: 50,
+        mobileFocalY: 50,
+        desktopZoom: 100,
+        mobileZoom: 100,
+        desktopFeatherStart: 0,
+        desktopFeatherWidth: 100,
+        desktopFeatherStrength: 0,
+        mobileFeatherStart: 0,
+        mobileFeatherWidth: 100,
+        mobileFeatherStrength: 0,
+      };
+
+      onPlacementChange?.(cleared);
     } finally {
       setClearingSlot(null);
     }
@@ -322,7 +349,13 @@ export function SiteMediaPlacements({ initialPlacements }: Props) {
         {placements.map((placement) => (
           <article
             key={placement.slot}
-            className="overflow-hidden rounded-lg border border-subtle-divider bg-paper"
+            id={`slot-${placement.slot}`}
+            className={cn(
+              "overflow-hidden rounded-lg border bg-paper transition-shadow",
+              targetSlot === placement.slot
+                ? "border-oxide shadow-md ring-2 ring-oxide/30"
+                : "border-subtle-divider",
+            )}
           >
             <div className="relative aspect-[16/9] bg-subtle-field">
               {placement.previewUrl ? (

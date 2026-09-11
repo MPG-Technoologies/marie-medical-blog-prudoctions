@@ -24,6 +24,17 @@ export interface AdminSiteMediaPlacement {
   mobileFocalX: number;
   mobileFocalY: number;
 
+  desktopZoom: number;
+  mobileZoom: number;
+
+  desktopFeatherStart: number;
+  desktopFeatherWidth: number;
+  desktopFeatherStrength: number;
+
+  mobileFeatherStart: number;
+  mobileFeatherWidth: number;
+  mobileFeatherStrength: number;
+
   previewUrl: string | null;
 }
 
@@ -36,6 +47,14 @@ interface SiteMediaRow {
   desktop_focal_y: number;
   mobile_focal_x: number;
   mobile_focal_y: number;
+  desktop_zoom?: number;
+  mobile_zoom?: number;
+  desktop_feather_start?: number;
+  desktop_feather_width?: number;
+  desktop_feather_strength?: number;
+  mobile_feather_start?: number;
+  mobile_feather_width?: number;
+  mobile_feather_strength?: number;
 }
 
 export function getSiteMediaPublicUrl(
@@ -61,7 +80,15 @@ export async function getAdminSiteMediaPlacements(): Promise<
       desktop_focal_x,
       desktop_focal_y,
       mobile_focal_x,
-      mobile_focal_y
+      mobile_focal_y,
+      desktop_zoom,
+      mobile_zoom,
+      desktop_feather_start,
+      desktop_feather_width,
+      desktop_feather_strength,
+      mobile_feather_start,
+      mobile_feather_width,
+      mobile_feather_strength
     `);
 
   if (error) {
@@ -98,6 +125,17 @@ export async function getAdminSiteMediaPlacements(): Promise<
 
       mobileFocalX: row?.mobile_focal_x ?? 50,
       mobileFocalY: row?.mobile_focal_y ?? 50,
+
+      desktopZoom: row?.desktop_zoom ?? 100,
+      mobileZoom: row?.mobile_zoom ?? 100,
+
+      desktopFeatherStart: row?.desktop_feather_start ?? 0,
+      desktopFeatherWidth: row?.desktop_feather_width ?? 100,
+      desktopFeatherStrength: row?.desktop_feather_strength ?? 0,
+
+      mobileFeatherStart: row?.mobile_feather_start ?? 0,
+      mobileFeatherWidth: row?.mobile_feather_width ?? 100,
+      mobileFeatherStrength: row?.mobile_feather_strength ?? 0,
 
       previewUrl: row?.storage_path
         ? getSiteMediaPublicUrl(supabase, row.storage_path)

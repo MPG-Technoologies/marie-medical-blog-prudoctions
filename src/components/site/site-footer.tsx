@@ -57,7 +57,7 @@ export function SiteFooter({
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="rounded-xs transition-colors hover:text-[#7B3F35] focus-visible:ring-2 focus-visible:ring-[#265D7A] focus-visible:outline-none"
+                    className="rounded-xs transition-colors duration-[160ms] hover:text-[#7B3F35] focus-visible:ring-2 focus-visible:ring-[#265D7A] focus-visible:outline-none"
                   >
                     {link.label}
                   </Link>
@@ -78,7 +78,7 @@ export function SiteFooter({
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="rounded-xs transition-colors hover:text-[#7B3F35] focus-visible:ring-2 focus-visible:ring-[#265D7A] focus-visible:outline-none"
+                      className="rounded-xs transition-colors duration-[160ms] hover:text-[#7B3F35] focus-visible:ring-2 focus-visible:ring-[#265D7A] focus-visible:outline-none"
                     >
                       {link.label}
                     </a>
@@ -99,7 +99,7 @@ export function SiteFooter({
               constitute medical advice. Read the full{" "}
               <Link
                 href="/disclaimer"
-                className="text-[#704037] underline underline-offset-2 transition-colors hover:text-[#582A22]"
+                className="text-[#7B3F35] underline transition-colors duration-[160ms] hover:text-[#582A22]"
               >
                 medical disclaimer
               </Link>

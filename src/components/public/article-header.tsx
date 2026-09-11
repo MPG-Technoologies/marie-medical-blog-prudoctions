@@ -51,7 +51,10 @@ export function ArticleHeader({
       <nav aria-label="Breadcrumb" className="mb-6">
         <ol className="text-muted-ink flex flex-wrap items-center gap-2 text-xs">
           <li>
-            <Link href="/" className="hover:text-brand-oxide">
+            <Link
+              href="/"
+              className="hover:text-brand-oxide transition-colors duration-[160ms]"
+            >
               Home
             </Link>
           </li>
@@ -59,7 +62,10 @@ export function ArticleHeader({
           <li aria-hidden="true">›</li>
 
           <li>
-            <Link href="/blog" className="hover:text-brand-oxide">
+            <Link
+              href="/blog"
+              className="hover:text-brand-oxide transition-colors duration-[160ms]"
+            >
               Articles
             </Link>
           </li>
@@ -71,7 +77,7 @@ export function ArticleHeader({
               <li>
                 <Link
                   href={`/blog?topic=${encodeURIComponent(category.slug)}`}
-                  className="hover:text-brand-oxide font-medium text-ink"
+                  className="hover:text-brand-oxide font-medium text-ink transition-colors duration-[160ms]"
                 >
                   {category.name}
                 </Link>

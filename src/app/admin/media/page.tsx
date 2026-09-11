@@ -8,7 +8,7 @@ import { getAdminSiteMediaPlacements } from "@/lib/admin/site-media";
 
 import { MediaManager } from "@/components/admin/media/media-manager";
 
-import { SiteMediaPlacements } from "@/components/admin/media/site-media-placements";
+import { SiteMediaWorkspace } from "@/components/admin/media/site-media-workspace";
 import { AdminPageHeader } from "@/components/admin/admin-ui";
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export default async function AdminMediaPage() {
       />
 
       <section aria-label="Managed website image placements">
-        <SiteMediaPlacements initialPlacements={placements} />
+        <SiteMediaWorkspace initialPlacements={placements} />
       </section>
 
       <section aria-label="Reusable media library">

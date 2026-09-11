@@ -62,7 +62,7 @@ export async function FeaturedArticle({
     return (
       <article
         className={cn(
-          "group relative border-t border-subtle-divider pt-5",
+          "group relative border-t border-subtle-divider pt-5 transition-colors duration-[220ms] group-hover:border-[#918579]/50",
           className,
         )}
       >
@@ -72,7 +72,7 @@ export async function FeaturedArticle({
             alt={article.featured_image_alt}
             fill
             sizes="(max-width: 768px) 100vw, 58vw"
-            className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.012] motion-reduce:transform-none"
+            className="object-cover transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.018] motion-reduce:transform-none"
           />
 
           <div
@@ -94,7 +94,7 @@ export async function FeaturedArticle({
             )}
           </div>
 
-          <Heading className="group-hover:text-brand-oxide mt-4 max-w-3xl font-serif text-3xl leading-[1.08] font-medium tracking-tight text-ink transition-colors sm:text-4xl">
+          <Heading className="group-hover:text-brand-oxide mt-4 max-w-3xl font-serif text-3xl leading-[1.08] font-medium tracking-tight text-ink transition-colors duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:text-4xl">
             <Link href={`/blog/${article.slug}`}>
               <span className="absolute inset-0" aria-hidden="true" />
               {article.title}
@@ -114,7 +114,12 @@ export async function FeaturedArticle({
               <span>{article.reading_time_minutes} min read</span>
             </div>
 
-            <span className="text-brand-oxide font-medium">Read article →</span>
+            <span className="text-brand-oxide inline-flex items-center gap-1 font-medium transition-colors duration-[160ms]">
+              Read article{" "}
+              <span className="inline-block transition-transform duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1 motion-reduce:transform-none">
+                →
+              </span>
+            </span>
           </div>
         </div>
       </article>
@@ -125,7 +130,7 @@ export async function FeaturedArticle({
     return (
       <article
         className={cn(
-          "group relative border-y border-subtle-divider py-8 sm:py-10",
+          "group relative border-y border-subtle-divider py-8 transition-colors duration-[220ms] group-hover:border-[#918579]/50 sm:py-10",
           className,
         )}
       >
@@ -142,7 +147,7 @@ export async function FeaturedArticle({
           )}
         </div>
 
-        <Heading className="group-hover:text-brand-oxide mt-5 max-w-5xl font-serif text-3xl leading-[1.12] font-medium tracking-tight text-ink transition-colors sm:text-4xl">
+        <Heading className="group-hover:text-brand-oxide mt-5 max-w-5xl font-serif text-3xl leading-[1.12] font-medium tracking-tight text-ink transition-colors duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:text-4xl">
           <Link href={`/blog/${article.slug}`}>
             <span className="absolute inset-0" aria-hidden="true" />
             {article.title}
@@ -162,7 +167,12 @@ export async function FeaturedArticle({
             <span>{article.reading_time_minutes} min read</span>
           </div>
 
-          <span className="text-brand-oxide font-medium">Read article →</span>
+          <span className="text-brand-oxide inline-flex items-center gap-1 font-medium transition-colors duration-[160ms]">
+            Read article{" "}
+            <span className="inline-block transition-transform duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1 motion-reduce:transform-none">
+              →
+            </span>
+          </span>
         </div>
       </article>
     );
@@ -171,7 +181,7 @@ export async function FeaturedArticle({
   return (
     <article
       className={cn(
-        "group relative border-y border-subtle-divider py-6 sm:py-8",
+        "group relative border-y border-subtle-divider py-6 transition-colors duration-[220ms] group-hover:border-[#918579]/50 sm:py-8",
         className,
       )}
     >
@@ -182,7 +192,7 @@ export async function FeaturedArticle({
             alt={article.featured_image_alt}
             fill
             sizes="(max-width: 768px) 100vw, 58vw"
-            className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.012] motion-reduce:transform-none"
+            className="object-cover transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.018] motion-reduce:transform-none"
           />
         </div>
 
@@ -201,7 +211,7 @@ export async function FeaturedArticle({
             </div>
           )}
 
-          <Heading className="group-hover:text-brand-oxide mt-5 font-serif text-3xl leading-[1.08] font-medium tracking-tight text-ink transition-colors sm:text-4xl">
+          <Heading className="group-hover:text-brand-oxide mt-5 font-serif text-3xl leading-[1.08] font-medium tracking-tight text-ink transition-colors duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:text-4xl">
             <Link href={`/blog/${article.slug}`}>
               <span className="absolute inset-0" aria-hidden="true" />
               {article.title}
@@ -214,10 +224,19 @@ export async function FeaturedArticle({
             </p>
           )}
 
-          <div className="text-muted-ink mt-7 flex flex-wrap items-center gap-2 border-t border-subtle-divider pt-4 text-xs">
-            {formattedDate && <span>{formattedDate}</span>}
-            {formattedDate && <span aria-hidden="true">•</span>}
-            <span>{article.reading_time_minutes} min read</span>
+          <div className="text-muted-ink mt-7 flex flex-wrap items-center justify-between gap-2 border-t border-subtle-divider pt-4 text-xs">
+            <div className="flex items-center gap-2">
+              {formattedDate && <span>{formattedDate}</span>}
+              {formattedDate && <span aria-hidden="true">•</span>}
+              <span>{article.reading_time_minutes} min read</span>
+            </div>
+
+            <span className="text-brand-oxide inline-flex items-center gap-1 font-medium transition-colors duration-[160ms]">
+              Read article{" "}
+              <span className="inline-block transition-transform duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1 motion-reduce:transform-none">
+                →
+              </span>
+            </span>
           </div>
         </div>
       </div>

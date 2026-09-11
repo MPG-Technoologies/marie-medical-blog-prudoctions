@@ -1319,3 +1319,75 @@ The project owner authorized this narrowly bounded launch verification stage fol
 
 **Approved by:** project owner.
 **Status:** ACTIVE / STAGE 12 LIMITED SCOPE COMPLETE / PRODUCTION VERIFIED / CLOSED.
+
+## ACTIVE — D041 — Post-V1 Evidence Folio Brand Icon & Motion Polish
+
+**Date:** 2026-09-08
+
+**Decision:**
+Authorizes one bounded post-V1 public refinement pass on dedicated branch `post-v1/evidence-folio-polish` starting from accepted canonical `main` (`e2dc7e0fcef2dd13fe72fdce9ac574ca4dda90c2`).
+Scope is strictly limited to:
+1. Installing the owner-approved Marie Medere browser/tab icon system using the owner-supplied transparent "M" asset (`media_1788830284972.png`).
+2. Adding restrained professional CSS-first motion and micro-interaction polish to the existing public Evidence Folio website following the principle of quiet editorial craftsmanship.
+
+**Explicit Exclusions:**
+No website redesign, no new features, no new content, no schema changes, no database migrations, no RLS changes, no auth changes, no SEO architecture changes, no dependency additions (no Framer Motion, GSAP, or third-party animation libraries), no universal scroll-animation frameworks, no changes to admin UI, no direct work on `main`, no merge into `main`, no push to production mirror, and no production deployment. Owner visual approval is strictly required before any merge or release.
+
+**Approved by:** project owner.
+**Status:** ACTIVE / POST-V1 PUBLIC POLISH — OWNER AUTHORIZED / VISUAL REVIEW REQUIRED.
+
+## ACTIVE — D042 — Homepage Responsive Editorial Hero Art Direction
+
+**Date:** 2026-09-08
+
+**Decision:**
+Authorizes a bounded visual extension to the post-V1 Evidence Folio polish pass on branch `post-v1/evidence-folio-polish` for homepage responsive editorial hero art direction.
+1. Installs the three owner-approved art-directed neutral editorial workspace assets (`marie-home-hero-desktop.png`, `marie-home-hero-tablet.png`, `marie-home-hero-mobile.png`) as the default production hero visual.
+2. Implements responsive breakpoint art direction using framework-native Next.js 16 `getImageProps` with `<picture>`:
+   - Desktop (>= 1024px): 16:9 wide landscape, right-weighted composition with long soft Evidence Folio parchment (`#F6F1E8`) feathering.
+   - Tablet (768px–1023px): 4:3 tighter landscape composition with soft left parchment feathering.
+   - Mobile (< 768px): 9:16 portrait composition placed below primary hero typography and CTAs so photography does not compromise text readability, with subtle upper parchment feathering.
+3. Preserves D036 `home_hero` managed media slot compatibility: when a custom `home_hero` asset is uploaded via Admin Media in the future, it automatically takes precedence.
+4. Preserves D041 motion tokens and `@media (prefers-reduced-motion: reduce)` overrides: hero visual participates only in the ~280ms settle entrance sequence.
+
+**Explicit Exclusions:**
+Zero schema changes, zero database migrations, zero RLS changes, zero auth changes, zero dependency additions, zero website redesign, zero main merge, zero production deployment. Awaits owner visual review.
+
+**Approved by:** project owner.
+**Status:** ACTIVE / POST-V1 RESPONSIVE HERO EXTENSION — OWNER AUTHORIZED / VISUAL REVIEW REQUIRED.
+
+## ACTIVE — D043 — Post-V1 Responsive Hero Section Editor
+
+**Date:** 2026-09-11
+
+**Decision:**
+Authorizes and accepts the implementation of the Post-V1 Responsive Hero Section Editor on dedicated branch `post-v1/hero-section-editor` (branched from clean post-V1 polish commit `809d07eac4f2570f78da008d0e25ee63a347a7e5` over accepted canonical `main` `e2dc7e0fcef2dd13fe72fdce9ac574ca4dda90c2`), merged into canonical `main`.
+This task supersedes the missing-asset stop condition by implementing presentation controls first, allowing the owner to later assign any approved image.
+1. Scope & Implementation:
+   - Sibling tabs under `Admin → Media`: `[ Public Image Editor ]` and `[ Hero Section Editor ]`.
+   - Hero Section Editor controls the 4 major hero placements: `home_hero`, `about_hero`, `portfolio_hero`, `contact_hero`.
+   - Two distinct editing modes: `[ Image Subject ]` (focal position, zoom, quick presets) and `[ Feather Effect ]` (start, width, strength, horizontal direction).
+   - Live multi-viewport previews for Desktop, Tablet (inheriting desktop settings), and Mobile.
+   - Native pointer-based drag-to-position without external libraries, plus full keyboard accessibility (Arrow keys 1%, Shift+Arrow 5%).
+   - Presentation zoom bounded between 100% and 180%, anchored around the selected focal point.
+   - Owner Visual Correction: Evidence Folio CSS parchment (`#F6F1E8`) horizontal feathering strictly **LEFT → RIGHT** across all viewports (Desktop, Tablet, and Mobile). Zero vertical top-to-bottom feathering remains.
+   - Text safe area overlay toggle for accurate editorial positioning.
+   - Reusable shared presentation component (`HeroMediaPresentation`) for both admin live preview and public Server Components.
+   - Clean removal of the earlier pre-feathered fallback assets (`marie-home-hero-*.png`) and component (`home-hero-art-direction.tsx`). When no managed image is assigned, the hero falls back cleanly to the approved image-free Evidence Folio layout.
+   - Minimal backward-compatible Supabase migration extending `public.site_media_slots` with presentation columns (`desktop_zoom`, `mobile_zoom`, `desktop_feather_start`, `desktop_feather_width`, `desktop_feather_strength`, `mobile_feather_start`, `mobile_feather_width`, `mobile_feather_strength`). Zero new tables.
+2. Architecture & React State Ownership:
+   - `SiteMediaWorkspace` serves as the single canonical source of truth for placements.
+   - `SiteMediaPlacements` is a strictly controlled child receiving placements and dispatching update/assign/clear events.
+   - `HeroSectionEditor` manages local unsaved draft state while synchronizing controlled persisted state.
+   - Zero parent state setters called inside child functional `setState` updaters, resolving React cross-component update warnings entirely.
+3. Local Auth Tooling:
+   - `scripts/provision-local-admin.mjs` safely provisions synthetic development credentials against local Supabase only (`127.0.0.1:54321`), strictly refusing non-local URLs and embedding zero secrets.
+4. Database & Hosted Verification:
+   - Migration `20260911103000_hero_presentation_controls.sql` applied to local Supabase and verified against hosted production project `eoexnnhqzrkurbqgbtnx`.
+   - Eight presentation columns exist with defaults and check constraints; RLS remains enabled; zero rows dropped; zero policies removed.
+5. Quality Gates & Merge Authorization:
+   - Full test suite passed: Node 201/201 tests, Playwright E2E hero review and state ownership suites, TypeScript, ESLint, Prettier, git diff, and production build.
+   - Owner explicitly authorized finalizing, committing, merging into canonical `main`, and pushing to `origin/main` on 2026-09-11.
+
+**Approved by:** project owner.
+**Status:** ACTIVE / POST-V1 HERO SECTION EDITOR COMPLETE / MERGED TO CANONICAL MAIN / ACCEPTED.

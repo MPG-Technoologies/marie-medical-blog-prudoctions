@@ -4,20 +4,23 @@ This file is the authoritative repository record of the currently active develop
 
 ## Current status
 
-- **Current stage:** Stage 12 Limited SEO, Search Console & Analytics Launch Check — COMPLETE / PRODUCTION VERIFIED / CLOSED
-- **Stage authorization:** D039 OWNER AUTHORIZED / D040 CLOSED — 2026-09-08 (LIMITED SCOPE: SEO + GOOGLE SEARCH CONSOLE + VERCEL ANALYTICS ONLY)
+- **Current stage:** Post-V1 Responsive Hero Section Editor — COMPLETE / OWNER ACCEPTED ON CANONICAL MAIN
+- **Stage authorization:** D041 (Brand Icon & Motion Polish) + D042 (Hero Art Direction) + D043 (Responsive Hero Section Editor) OWNER AUTHORIZED AND ACCEPTED — 2026-09-11 (STATUS: POST-V1 HERO SECTION EDITOR — COMPLETE / ACCEPTED ON CANONICAL MAIN)
+- **Previous stage:** Stage 12 Limited SEO, Search Console & Analytics Launch Check — COMPLETE / PRODUCTION VERIFIED / CLOSED (STAGE 12 REMAINS CLOSED)
+- **Starting canonical baseline:** `e2dc7e0fcef2dd13fe72fdce9ac574ca4dda90c2`
 - **Canonical production baseline:** `ecb4407840ddcc0a002411e40ebdb88bc92d8fd2`
 - **Merge commit:** `019ae553d96c68a85bfe652f1d1c83ab05b27272`
 - **Merge parents:** first parent `9ffa8cd34a8b074690cdffb3a5df3094d19da394`; second parent `f02b82dbac7408780f4460d768697fed8cc22817`
-- **Canonical repository (`origin/main`):** `techwithmpg/Marie-medical-blog` synchronized at `b7dbc9ea56b2208ea6aa684f74ebad6fa4e4ead1`
-- **Production mirror (`production/main`):** `MPG-Technoologies/marie-medical-blog-prudoctions` synchronized at `b7dbc9ea56b2208ea6aa684f74ebad6fa4e4ead1`
-- **Active working branch:** `main`
+- **Canonical repository (`origin/main`):** `techwithmpg/Marie-medical-blog` synchronized at `e2dc7e0fcef2dd13fe72fdce9ac574ca4dda90c2`
+- **Production mirror (`production/main`):** `MPG-Technoologies/marie-medical-blog-prudoctions` synchronized at `e2dc7e0fcef2dd13fe72fdce9ac574ca4dda90c2`
+- **Active working branch:** `post-v1/hero-section-editor`
 - **Vercel production deployment:** DEPLOYED (`ecb4407840ddcc0a002411e40ebdb88bc92d8fd2`) to canonical domain `https://mariemedere.com`
 - **Canonical domain & routing:** `https://mariemedere.com` is production canonical; `www.mariemedere.com` routing confirmed 308 redirect to apex `https://mariemedere.com`
 - **Hosted Supabase project:** `eoexnnhqzrkurbqgbtnx` (Active / Healthy)
 - **D036 migration:** `supabase/migrations/20260830090000_managed_public_media_slots.sql` — DEPLOYED TO HOSTED `eoexnnhqzrkurbqgbtnx` / VERIFIED
+- **D043 migration:** `supabase/migrations/20260911103000_hero_presentation_controls.sql` — DEPLOYED TO HOSTED `eoexnnhqzrkurbqgbtnx` / VERIFIED (8 presentation columns, check constraints, RLS enabled)
 - **D036 canonical slot IDs:** `home_hero`, `about_hero`, `portfolio_hero`, `contact_hero`, `author_portrait`, `default_social` (all verified active and rendered in admin UI)
-- **Post-merge quality gate on canonical `main`:** FULL PASS — Node 187/187; TypeScript (0 errors); ESLint (0 errors, 0 warnings); Prettier (100% check); git diff check (clean); Next.js production build 20/20 routes PASS (compiled in 14.0s)
+- **Post-merge quality gate on canonical `main`:** FULL PASS — Node 201/201; TypeScript (0 errors); ESLint (0 errors, 0 warnings); Prettier (100% check); git diff check (clean); Next.js production build 20/20 routes PASS; Playwright E2E hero review and state ownership PASS
 - **Production verification & QA results (`https://mariemedere.com`):**
   - **Public route smoke tests:** `/`, `/blog`, `/portfolio`, `/about`, `/contact`, `/disclaimer` all return `200 OK` with valid Evidence Folio layout and page titles.
   - **Marie admin password authentication:** Automated verification established Marie's UUID (`9217c58f-a777-4a77-94d9-d4729fcf3cea`), authenticated session validity, `is_admin` RPC authorization, and protected admin routing. Project owner manually verified email/password login through `https://mariemedere.com/admin/login` and confirmed successful redirect into `/admin`.

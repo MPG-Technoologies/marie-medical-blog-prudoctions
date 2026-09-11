@@ -9,10 +9,10 @@ import { TopicImprint } from "@/components/evidence/topic-imprint";
 import { MedicalDisclaimer } from "@/components/public/medical-disclaimer";
 import { HomeContactBanner } from "@/components/public/home-contact-banner";
 import { HomeDiscoverySections } from "@/components/public/home-discovery-sections";
-import { ManagedSiteImage } from "@/components/public/managed-site-image";
 import { getPublicProfile, getPublicSiteSettings } from "@/lib/public-data";
 import { getPublicRouteDiscoveryMetadata } from "@/lib/site-url";
 import { getPublicSiteMediaSlot } from "@/lib/public-site-media";
+import { HeroMediaPresentation } from "@/components/public/hero-media-presentation";
 import {
   getFeaturedPublishedArticle,
   getLatestPublishedArticles,
@@ -85,44 +85,33 @@ export default async function HomePage() {
       <div className="space-y-16 sm:space-y-24">
         {/* Section 01: Professional & Editorial Positioning */}
         <section className="relative isolate overflow-hidden">
-          {homeHero ? (
-            <>
-              <div className="absolute inset-y-0 right-[-12%] w-[76%] md:hidden">
-                <ManagedSiteImage
-                  media={homeHero}
-                  priority
-                  sizes="76vw"
-                  className="h-full w-full"
-                />
-              </div>
-
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-r from-[#F6F1E8] via-[#F6F1E8]/96 via-[58%] to-[#F6F1E8]/20 md:hidden"
-              />
-            </>
-          ) : null}
-
-          <div className="relative z-10 grid min-h-[430px] items-center md:grid-cols-12 md:gap-0 lg:min-h-[480px]">
-            <div className="max-w-[88%] py-12 md:col-span-6 md:max-w-none md:pr-10 lg:col-span-5 lg:pr-6">
-              <div className="flex flex-wrap items-center gap-3">
+          <div className="relative z-10 grid min-h-[430px] items-stretch md:grid-cols-12 md:gap-0 lg:min-h-[480px]">
+            <div
+              className={cn(
+                "flex flex-col justify-center py-10 sm:py-12 md:pr-10 lg:pr-6",
+                homeHero
+                  ? "md:col-span-6 lg:col-span-5"
+                  : "md:col-span-10 lg:col-span-8",
+              )}
+            >
+              <div className="hero-composition-enter hero-enter-delay-1 flex flex-wrap items-center gap-3">
                 <FolioMarker number={1} label="Publication Masthead" />
                 <TopicImprint variant="oxide">Medical Writing</TopicImprint>
               </div>
 
-              <h1 className="mt-7 font-serif text-4xl leading-[1.02] font-medium tracking-tight text-[#242321] sm:text-5xl lg:text-[4rem]">
+              <h1 className="hero-composition-enter hero-enter-delay-2 mt-7 font-serif text-4xl leading-[1.02] font-medium tracking-tight text-[#242321] sm:text-5xl lg:text-[4rem]">
                 {siteTitle}
               </h1>
 
-              <p className="mt-5 max-w-lg font-serif text-xl leading-snug text-[#7B3F35] sm:text-2xl">
+              <p className="hero-composition-enter hero-enter-delay-3 mt-5 max-w-lg font-serif text-xl leading-snug text-[#7B3F35] sm:text-2xl">
                 {tagline}
               </p>
 
-              <p className="mt-7 max-w-xl font-sans text-base leading-relaxed text-[#5E5953] sm:text-lg">
+              <p className="hero-composition-enter hero-enter-delay-4 mt-7 max-w-xl font-sans text-base leading-relaxed text-[#5E5953] sm:text-lg">
                 {introText}
               </p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-3">
+              <div className="hero-composition-enter hero-enter-delay-4 mt-8 flex flex-wrap items-center gap-3">
                 <Link
                   href="/blog"
                   className={cn(
@@ -147,25 +136,30 @@ export default async function HomePage() {
                   Selected Writing
                 </Link>
               </div>
+
+              {/* Mobile art-directed visual (< 768px): placed below primary hero copy with clean presentation */}
+              {homeHero ? (
+                <div className="hero-composition-enter hero-enter-delay-5 mt-8 w-full md:hidden">
+                  <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-xs sm:aspect-[3/4] sm:max-w-md">
+                    <HeroMediaPresentation
+                      media={homeHero}
+                      priority
+                      sizes="(max-width: 768px) 90vw, 430px"
+                      viewport="mobile"
+                      slot="home_hero"
+                    />
+                  </div>
+                </div>
+              ) : null}
             </div>
 
             {homeHero ? (
-              <div className="relative hidden h-full min-h-[430px] md:col-span-6 md:block lg:col-span-7 lg:-mr-6">
-                <ManagedSiteImage
+              <div className="hero-composition-enter hero-enter-delay-5 relative hidden self-stretch md:col-span-6 md:block lg:col-span-7 lg:-mr-6 xl:-mr-10">
+                <HeroMediaPresentation
                   media={homeHero}
                   priority
-                  sizes="(max-width: 1024px) 50vw, 58vw"
-                  className="absolute inset-0"
-                />
-
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#F6F1E8] to-transparent lg:w-32"
-                />
-
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#F6F1E8]/35 to-transparent"
+                  sizes="(min-width: 1280px) 55vw, (min-width: 1024px) 58vw, 50vw"
+                  slot="home_hero"
                 />
               </div>
             ) : null}
@@ -189,9 +183,18 @@ export default async function HomePage() {
 
                 <Link
                   href="/portfolio"
-                  className="text-brand-oxide hidden text-[0.68rem] font-semibold tracking-wide hover:underline sm:inline-flex"
+                  className="group/link text-brand-oxide hidden items-center gap-1 text-[0.68rem] font-semibold tracking-wide transition-colors duration-[160ms] hover:text-[#582A22] sm:inline-flex"
                 >
-                  View all writing →
+                  <span className="relative">
+                    View all writing
+                    <span
+                      aria-hidden="true"
+                      className="absolute right-0 bottom-0 left-0 h-[1px] origin-left scale-x-0 bg-current transition-transform duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/link:scale-x-100 motion-reduce:transition-none"
+                    />
+                  </span>
+                  <span className="inline-block transition-transform duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/link:translate-x-1 motion-reduce:transform-none">
+                    →
+                  </span>
                 </Link>
               </div>
 
@@ -208,18 +211,18 @@ export default async function HomePage() {
                     <Link
                       key={article.id}
                       href={`/blog/${article.slug}`}
-                      className="group relative border-t border-subtle-divider pt-4"
+                      className="group relative border-t border-subtle-divider pt-4 transition-colors duration-[220ms] group-hover:border-[#918579]/50"
                     >
                       <div className="flex items-start gap-3">
                         <FileText
                           aria-hidden="true"
                           strokeWidth={1.45}
-                          className="text-brand-oxide mt-0.5 h-4 w-4 shrink-0"
+                          className="text-brand-oxide mt-0.5 h-4 w-4 shrink-0 transition-transform duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0.5 motion-reduce:transform-none"
                         />
 
                         <div className="min-w-0">
                           <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                            <span className="text-brand-oxide font-serif text-[0.72rem]">
+                            <span className="text-brand-oxide font-serif text-[0.72rem] transition-colors duration-[180ms] group-hover:text-[#68332A]">
                               {String(index + 1).padStart(2, "0")}
                             </span>
 
@@ -230,7 +233,7 @@ export default async function HomePage() {
                             )}
                           </div>
 
-                          <h3 className="group-hover:text-brand-oxide mt-2 font-serif text-[1.03rem] leading-[1.14] font-medium tracking-tight text-ink transition-colors">
+                          <h3 className="group-hover:text-brand-oxide mt-2 font-serif text-[1.03rem] leading-[1.14] font-medium tracking-tight text-ink transition-colors duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)]">
                             {article.title}
                           </h3>
                         </div>

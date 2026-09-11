@@ -48,7 +48,7 @@ export function PageIntro({
         </p>
       )}
 
-      {showSplitRule && <SplitRule className="pt-2 sm:pt-4" />}
+      {showSplitRule && <SplitRule reveal className="pt-2 sm:pt-4" />}
     </div>
   );
 }

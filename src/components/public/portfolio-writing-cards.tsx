@@ -67,7 +67,7 @@ export function PortfolioFeaturedCard({
   const hasImage = Boolean(imageUrl && article.featured_image_alt?.trim());
 
   return (
-    <article className="group relative overflow-hidden rounded-lg border border-subtle-divider bg-[#FFFDF9]/65">
+    <article className="group relative overflow-hidden rounded-lg border border-subtle-divider bg-[#FFFDF9]/65 transition-colors duration-[220ms] group-hover:border-[#918579]/50">
       <div className="grid h-full sm:grid-cols-[42%_58%] xl:grid-cols-[44%_56%]">
         <div className="relative min-h-[220px] overflow-hidden bg-[#EEE6DA] sm:min-h-full">
           {hasImage && imageUrl && article.featured_image_alt ? (
@@ -76,7 +76,7 @@ export function PortfolioFeaturedCard({
               alt={article.featured_image_alt}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1280px) 42vw, 16vw"
-              className="object-cover object-center transition-transform duration-300 ease-out group-hover:scale-[1.02] motion-reduce:transform-none"
+              className="object-cover object-center transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.018] motion-reduce:transform-none"
             />
           ) : (
             <div className="text-brand-oxide/60 flex h-full min-h-[220px] items-center justify-center">
@@ -94,7 +94,7 @@ export function PortfolioFeaturedCard({
             <TopicImprint>{article.category.name}</TopicImprint>
           )}
 
-          <h3 className="group-hover:text-brand-oxide mt-3 font-serif text-[1.35rem] leading-[1.06] font-medium tracking-tight text-ink transition-colors sm:text-[1.45rem]">
+          <h3 className="group-hover:text-brand-oxide mt-3 font-serif text-[1.35rem] leading-[1.06] font-medium tracking-tight text-ink transition-colors duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:text-[1.45rem]">
             <Link href={`/blog/${article.slug}`}>
               <span aria-hidden="true" className="absolute inset-0" />
               {article.title}
@@ -116,8 +116,11 @@ export function PortfolioFeaturedCard({
               <span>{article.reading_time_minutes} min read</span>
             </div>
 
-            <span className="text-brand-oxide mt-3 inline-flex text-xs font-semibold">
-              Read article →
+            <span className="text-brand-oxide mt-3 inline-flex items-center gap-1 text-xs font-semibold transition-colors duration-[160ms]">
+              Read article{" "}
+              <span className="inline-block transition-transform duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1 motion-reduce:transform-none">
+                →
+              </span>
             </span>
           </div>
         </div>
@@ -136,7 +139,7 @@ export function PortfolioCompactCard({
   const formattedDate = formatDate(article.published_at);
 
   return (
-    <article className="group relative rounded-lg border border-subtle-divider bg-[#FFFDF9]/55 p-4 sm:p-5">
+    <article className="group relative rounded-lg border border-subtle-divider bg-[#FFFDF9]/55 p-4 transition-colors duration-[220ms] group-hover:border-[#918579]/50 sm:p-5">
       <div className="grid min-w-0 gap-4 sm:grid-cols-[58px_minmax(0,1fr)_auto] sm:items-center">
         <div className="text-brand-oxide flex h-14 w-14 items-center justify-center rounded-lg border border-[#E0D3C5] bg-[#FBF4EA]">
           {icon}
@@ -149,7 +152,7 @@ export function PortfolioCompactCard({
             </p>
           )}
 
-          <h3 className="group-hover:text-brand-oxide mt-1 font-serif text-base leading-[1.1] font-medium text-ink transition-colors sm:text-lg">
+          <h3 className="group-hover:text-brand-oxide mt-1 font-serif text-base leading-[1.1] font-medium text-ink transition-colors duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:text-lg">
             <Link href={`/blog/${article.slug}`}>
               <span aria-hidden="true" className="absolute inset-0" />
               {article.title}
@@ -170,8 +173,11 @@ export function PortfolioCompactCard({
             <div>{article.reading_time_minutes} min read</div>
           </div>
 
-          <div className="text-brand-oxide mt-2 text-xs font-semibold">
-            Read article →
+          <div className="text-brand-oxide mt-2 inline-flex items-center gap-1 text-xs font-semibold transition-colors duration-[160ms]">
+            Read article{" "}
+            <span className="inline-block transition-transform duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1 motion-reduce:transform-none">
+              →
+            </span>
           </div>
         </div>
       </div>
